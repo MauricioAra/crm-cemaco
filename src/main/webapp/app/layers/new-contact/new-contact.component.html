@@ -1,0 +1,56 @@
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h4>Nuevo contacto</h4>
+        <hr>
+        <div class="form-group">
+            <label class="form-control-label" for="field_name">Nombre</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                   [(ngModel)]="contact.name" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_firstName">Primer apellido</label>
+            <input type="text" class="form-control" name="firstName" id="field_firstName"
+                   [(ngModel)]="contact.firstName" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_lastName">Segundo apellido</label>
+            <input type="text" class="form-control" name="lastName" id="field_lastName"
+                   [(ngModel)]="contact.lastName" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_email">Correo</label>
+            <input type="text" class="form-control" name="email" id="field_email"
+                   [(ngModel)]="contact.email" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_socialId">Cédula</label>
+            <input type="text" class="form-control" name="socialId" id="field_socialId"
+                   [(ngModel)]="contact.socialId" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label">Género</label>
+            <div ngbRadioGroup name="sex" [(ngModel)]="contact.sex">
+                <label ngbButtonLabel>
+                    <input ngbButton type="radio" [value]="'m'"> Mujer
+                </label>
+                <label ngbButtonLabel>
+                    <input ngbButton type="radio" [value]="'h'"> Hombre
+                </label>
+                <label ngbButtonLabel>
+                    <input ngbButton type="radio" [value]="'o'"> Otro
+                </label>
+            </div>
+        </div>
+        <div *ngIf="success" class="alert alert-success" role="alert">
+            <span><strong>Se registró correctamente... <a [routerLink]="['/new-follow',contact.id]">Crear seguimiento</a></strong></span>
+        </div>
+        <div *ngIf="fail" class="alert alert-danger" role="alert">
+            <span >Hubo un error al registrar el contacto, intentelo más tarde.</span>
+        </div>
+        <button (click)="create()" class="btn btn-primary">
+            <span>Crear</span>
+        </button>
+        <br>
+
+    </div>
+</div>

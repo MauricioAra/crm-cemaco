@@ -1,41 +1,127 @@
 <div class="row">
-    <div class="col-md-3">
-        <span class="hipster img-fluid rounded"></span>
-    </div>
-    <div class="col-md-9">
-        <h1 class="display-4">Welcome, Java Hipster!</h1>
-        <p class="lead">This is your homepage</p>
-
+    <div class="col-md-12">
         <div [ngSwitch]="isAuthenticated()">
-            <div class="alert alert-success" *ngSwitchCase="true">
-                <span *ngIf="account"
-                   > You are logged in as user "{{account.login}}". </span>
+            <!--LOGUEADO-->
+            <div *ngSwitchCase="true">
+                <h4>Filtros</h4>
+                <div class="row">
+                    <div class="col-md-3">
+                        <button class="btn btn-success" [routerLink]="['/validate-contact']" style="margin-bottom: 20px!important;width: 100%;">
+                            <span class="fa fa-plus"></span>
+                            <span>
+                                Crear seguimiento
+                            </span>
+                        </button>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Buscar por fecha de siguiente contacto"
+                                   name="dp" [(ngModel)]="nextContact" ngbDatepicker #d="ngbDatepicker"
+                                   (ngModelChange)="findByNextContact(nextContact)">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                                    <span class="fa fa-calendar"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="Buscar por fecha de registro"
+                                   name="dp" [(ngModel)]="registryDate" ngbDatepicker #a="ngbDatepicker"
+                                   (ngModelChange)="findByRegistryContact(registryDate)">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" (click)="a.toggle()" type="button">
+                                    <span class="fa fa-calendar"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-primary" (click)="today()" style="margin-bottom: 20px!important;width: 100%;">
+                            <span class="fa fa-check"></span>
+                            <span>
+                                Hoy
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <hr>
+                <h4>Seguimientos del día de hoy</h4>
+                <div class="table-responsive" *ngIf="follows">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th><span>Serie</span></th>
+                            <th><span>Origen del contacto</span></th>
+                            <th><span>Mediante</span></th>
+                            <th><span>Próximo contacto</span></th>
+                            <th><span>Fecha de registro</span></th>
+                            <th><span>Estado</span></th>
+                            <th><span>Razón de contacto</span></th>
+                            <th><span>Resultado</span></th>
+                            <th><span>Contacto</span></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let follow of follows ;trackBy: trackId">
+                            <td><a [routerLink]="['../follow', follow.id ]">{{follow.id}}</a></td>
+                            <td>
+                                <span *ngIf="follow.originContact == '1'">Daily planet</span>
+                                <span *ngIf="follow.originContact == '2'">Once noticias</span>
+                                <span *ngIf="follow.originContact == '3'">Otro</span>
+                            </td>
+                            <td>{{follow.subOriginContact}}</td>
+                            <td>{{follow.nextContactDate}}</td>
+                            <td>{{follow.registryDate}}</td>
+                            <td>
+                                <span *ngIf="follow.status == 'P'">Pendiente</span>
+                                <span *ngIf="follow.status == 'C'">Completado</span>
+                                <span *ngIf="follow.status == 'NC'">No completado</span>
+                            <td>{{follow.nextContactReason}}</td>
+                            <td>{{follow.result}}</td>
+                            <td>
+                                <div *ngIf="follow.contactId">
+                                    <a [routerLink]="['../contact', follow.contactId  ]" >{{follow.contactName}}</a>
+                                </div>
+                            </td>
+                            <td class="text-right">
+                                <div class="btn-group flex-btn-group-container">
+                                    <button type="submit"
+                                            [routerLink]="['../follow', follow.id ]"
+                                            class="btn btn-info btn-sm">
+                                        <span class="fa fa-eye"></span>
+                                        <span class="d-none d-md-inline">Detalles</span>
+                                    </button>
+                                    <!--<button type="submit"-->
+                                            <!--[routerLink]="['/', { outlets: { popup: 'follow/'+ follow.id + '/edit'} }]"-->
+                                            <!--replaceUrl="true"-->
+                                            <!--queryParamsHandling="merge"-->
+                                            <!--class="btn btn-primary btn-sm">-->
+                                        <!--<span class="fa fa-pencil"></span>-->
+                                        <!--<span class="d-none d-md-inline">Edit</span>-->
+                                    <!--</button>-->
+                                    <!--<button type="submit"-->
+                                            <!--[routerLink]="['/', { outlets: { popup: 'follow/'+ follow.id + '/delete'} }]"-->
+                                            <!--replaceUrl="true"-->
+                                            <!--queryParamsHandling="merge"-->
+                                            <!--class="btn btn-danger btn-sm">-->
+                                        <!--<span class="fa fa-remove"></span>-->
+                                        <!--<span class="d-none d-md-inline">Delete</span>-->
+                                    <!--</button>-->
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-
-            <div class="alert alert-warning" *ngSwitchCase="false">
-                <span>If you want to </span>
-                <a class="alert-link" (click)="login()">sign in</a><span>, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").</span>
-            </div>
-            <div class="alert alert-warning" *ngSwitchCase="false">
-                <span>You don't have an account yet?</span>
-                <a class="alert-link" routerLink="register">Register a new account</a>
+            <!--NO LOGUEADO-->
+            <div  *ngSwitchCase="false">
+                Bienvenido al Crm de CEMACO
             </div>
         </div>
 
-        <p>
-            If you have any question on JHipster:
-        </p>
-
-        <ul>
-            <li><a href="http://www.jhipster.tech/" target="_blank" rel="noopener">JHipster homepage</a></li>
-            <li><a href="http://stackoverflow.com/tags/jhipster/info" target="_blank" rel="noopener">JHipster on Stack Overflow</a></li>
-            <li><a href="https://github.com/jhipster/generator-jhipster/issues?state=open" target="_blank" rel="noopener">JHipster bug tracker</a></li>
-            <li><a href="https://gitter.im/jhipster/generator-jhipster" target="_blank" rel="noopener">JHipster public chat room</a></li>
-            <li><a href="https://twitter.com/java_hipster" target="_blank" rel="noopener">follow @java_hipster on Twitter</a></li>
-        </ul>
-
-        <p>
-            <span>If you like JHipster, don't forget to give us a star on</span> <a href="https://github.com/jhipster/generator-jhipster" target="_blank" rel="noopener">GitHub</a>!
-        </p>
     </div>
 </div>

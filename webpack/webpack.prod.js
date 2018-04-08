@@ -99,10 +99,6 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
         new webpack.LoaderOptionsPlugin({
             minimize: true,
             debug: false
-        }),
-        new WorkboxPlugin({
-          clientsClaim: true,
-          skipWaiting: true,
         })
     ]
 });

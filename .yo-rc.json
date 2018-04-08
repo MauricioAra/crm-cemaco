@@ -29,6 +29,8 @@
       "gatling"
     ],
     "jhiPrefix": "jhi",
-    "enableTranslation": false
+    "enableTranslation": false,
+    "herokuDeployType": "jar",
+    "herokuAppName": "crmcemaco"
   }
 }

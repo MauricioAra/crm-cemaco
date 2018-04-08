@@ -1,0 +1,32 @@
+entity Contact{
+  name String,
+  firstName String,
+  lastName String,
+  email String,
+  socialId String,
+  sex String,
+  registryDate String,
+  updateDate String,
+  status String
+}
+
+entity Follow{
+	originContact String,
+    subOriginContact String,
+    result String,
+    nextContactDate String,
+    registryDate String,
+    status String,
+    nextContactReason String,
+    favoriteCard String,
+    buyInCemaco String,
+    interestedBuy String,
+    article String
+}
+
+relationship OneToMany {
+  Contact{follow} to Follow{contact(name)}
+}
+
+dto * with mapstruct
+service all with serviceImpl

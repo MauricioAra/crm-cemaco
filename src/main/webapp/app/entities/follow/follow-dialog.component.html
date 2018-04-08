@@ -1,0 +1,87 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myFollowLabel">Create or edit a Follow</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!follow.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="follow.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_originContact">Origin Contact</label>
+            <input type="text" class="form-control" name="originContact" id="field_originContact"
+                [(ngModel)]="follow.originContact" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_subOriginContact">Sub Origin Contact</label>
+            <input type="text" class="form-control" name="subOriginContact" id="field_subOriginContact"
+                [(ngModel)]="follow.subOriginContact" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_result">Result</label>
+            <input type="text" class="form-control" name="result" id="field_result"
+                [(ngModel)]="follow.result" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_nextContactDate">Next Contact Date</label>
+            <input type="text" class="form-control" name="nextContactDate" id="field_nextContactDate"
+                [(ngModel)]="follow.nextContactDate" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_registryDate">Registry Date</label>
+            <input type="text" class="form-control" name="registryDate" id="field_registryDate"
+                [(ngModel)]="follow.registryDate" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_status">Status</label>
+            <input type="text" class="form-control" name="status" id="field_status"
+                [(ngModel)]="follow.status" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_nextContactReason">Next Contact Reason</label>
+            <input type="text" class="form-control" name="nextContactReason" id="field_nextContactReason"
+                [(ngModel)]="follow.nextContactReason" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_favoriteCard">Favorite Card</label>
+            <input type="text" class="form-control" name="favoriteCard" id="field_favoriteCard"
+                [(ngModel)]="follow.favoriteCard" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_buyInCemaco">Buy In Cemaco</label>
+            <input type="text" class="form-control" name="buyInCemaco" id="field_buyInCemaco"
+                [(ngModel)]="follow.buyInCemaco" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_interestedBuy">Interested Buy</label>
+            <input type="text" class="form-control" name="interestedBuy" id="field_interestedBuy"
+                [(ngModel)]="follow.interestedBuy" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_article">Article</label>
+            <input type="text" class="form-control" name="article" id="field_article"
+                [(ngModel)]="follow.article" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_contact">Contact</label>
+            <select class="form-control" id="field_contact" name="contact" [(ngModel)]="follow.contactId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="contactOption.id" *ngFor="let contactOption of contacts; trackBy: trackContactById">{{contactOption.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

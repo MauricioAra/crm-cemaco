@@ -1,0 +1,63 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "contact",
+            "otherEntityName": "contact",
+            "otherEntityField": "name"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "originContact",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "subOriginContact",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "result",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "nextContactDate",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "registryDate",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "nextContactReason",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "favoriteCard",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "buyInCemaco",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "interestedBuy",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "article",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180407052013",
+    "entityTableName": "follow",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false
+}

@@ -1,0 +1,155 @@
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h4>Nuevo seguimiento</h4>
+        <hr>
+        <div class="form-group">
+            <label class="form-control-label">Origen del contacto</label>
+            <select class="form-control" name="sel"
+                    [(ngModel)]="follow.originContact">
+                <option *ngFor="let origin of origins" [ngValue]="origin.id">
+                    {{origin.name}}
+                </option>
+            </select>
+        </div>
+
+        <div *ngIf="follow.originContact == '1'" class="form-group">
+            <label class="form-control-label">Mediante</label>
+            <div class="form-group">
+                <div ngbRadioGroup name="subOriginContact" [(ngModel)]="follow.subOriginContact">
+                    <label ngbButtonLabel>
+                        <input ngbButton type="radio" [value]="'Facebook'"> Facebook
+                    </label>
+                    <label ngbButtonLabel>
+                        <input ngbButton type="radio" [value]="'YouTube'"> YouTube
+                    </label>
+                    <label ngbButtonLabel>
+                        <input ngbButton type="radio" [value]="'Twitter'"> Twitter
+                    </label>
+                    <label ngbButtonLabel>
+                        <input ngbButton type="radio" [value]="'Correo'"> Correo
+                    </label>
+                    <label ngbButtonLabel>
+                        <input ngbButton type="radio" [value]="'Dinámica Votos'"> Dinámica Votos
+                    </label>
+                    <label ngbButtonLabel>
+                        <input ngbButton type="radio" [value]="'Sitio'"> Sitio
+                    </label>
+                    <label ngbButtonLabel>
+                        <input ngbButton type="radio" [value]="'Banner'"> Banner
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="follow.originContact == '3'" class="form-group">
+            <label class="form-control-label">Otro tipo de contacto</label>
+            <input type="text" class="form-control" name="result"
+                   [(ngModel)]="follow.subOriginContact" />
+        </div>
+
+        <hr>
+
+        <div class="form-group">
+            <label class="form-control-label">¿Tiene tarjeta favorita?</label>
+            <div class="form-group">
+                <div ngbRadioGroup name="favoriteCard" [(ngModel)]="follow.favoriteCard">
+                    <label ngbButtonLabel>
+                        <input ngbButton type="radio" [value]="'Sí'"> Sí
+                    </label>
+                    <label ngbButtonLabel>
+                        <input ngbButton type="radio" [value]="'No'"> No
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="form-group">
+            <label class="form-control-label" >¿Ha comprado en cemaco?</label>
+            <div class="form-group">
+                <div ngbRadioGroup name="buyCemaco" [(ngModel)]="follow.buyInCemaco">
+                    <label ngbButtonLabel>
+                        <input ngbButton type="radio" [value]="'Sí'"> Sí
+                    </label>
+                    <label ngbButtonLabel>
+                        <input ngbButton type="radio" [value]="'No'"> No
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="form-group">
+            <label class="form-control-label">¿Esta interesado en comprar en cemaco?</label>
+            <div class="form-group">
+                <div ngbRadioGroup name="interestedBuyCemaco" [(ngModel)]="follow.interestedBuy">
+                    <label ngbButtonLabel>
+                        <input ngbButton type="radio" [value]="'Sí'"> Sí
+                    </label>
+                    <label ngbButtonLabel>
+                        <input ngbButton type="radio" [value]="'No'"> No
+                    </label>
+                </div>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <div class="form-group" *ngIf="follow.interestedBuy == 'Sí'">
+            <label class="form-control-label">Articulo</label>
+            <select class="form-control" name="sel"
+                    [(ngModel)]="follow.article">
+                <option *ngFor="let article of articles" [ngValue]="article.name">
+                    {{article.name}}
+                </option>
+            </select>
+        </div>
+
+        <hr>
+
+        <div class="form-group">
+            <label class="form-control-label">Fecha de siguiente contacto</label>
+            <div class="input-group">
+                <input (click)="d.toggle()" class="form-control" placeholder="yyyy-mm-dd"
+                       name="dp" [(ngModel)]="follow.nextContactDate" ngbDatepicker #d="ngbDatepicker">
+                <!--<div class="input-group-append">-->
+                    <!--<button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">-->
+                        <!--<img src="../../content/images/calendar.png" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>-->
+                    <!--</button>-->
+                <!--</div>-->
+            </div>
+
+
+        </div>
+
+        <hr>
+
+        <div class="form-group">
+            <label class="form-control-label" for="field_nextContactReason">Razón de siguiente contacto</label>
+            <input type="text" class="form-control" name="nextContactReason" id="field_nextContactReason"
+                   [(ngModel)]="follow.nextContactReason" />
+        </div>
+
+        <hr>
+
+        <!--<div class="form-group">-->
+            <!--<label class="form-control-label" for="field_result">Resultado del seguimiento / Acción a tomar</label>-->
+            <!--<input type="text" class="form-control" name="result" id="field_result"-->
+                   <!--[(ngModel)]="follow.result" />-->
+        <!--</div>-->
+
+        <div *ngIf="success" class="alert alert-success" role="alert">
+            <span><strong>Se registró correctamente... <a [routerLink]="['/']">Volver</a></strong></span>
+        </div>
+        <div *ngIf="fail" class="alert alert-danger" role="alert">
+            <span >Hubo un error al registrar el seguimiento, intentelo más tarde.</span>
+        </div>
+
+        <button (click)="create()" class="btn btn-primary">
+            <span>Crear</span>
+        </button>
+
+    </div>
+</div>

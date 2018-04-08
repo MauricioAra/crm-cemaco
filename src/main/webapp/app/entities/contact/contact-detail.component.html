@@ -1,0 +1,58 @@
+
+<div *ngIf="contact">
+    <h2><span>Contact</span> {{contact.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Name</span></dt>
+        <dd>
+            <span>{{contact.name}}</span>
+        </dd>
+        <dt><span>First Name</span></dt>
+        <dd>
+            <span>{{contact.firstName}}</span>
+        </dd>
+        <dt><span>Last Name</span></dt>
+        <dd>
+            <span>{{contact.lastName}}</span>
+        </dd>
+        <dt><span>Email</span></dt>
+        <dd>
+            <span>{{contact.email}}</span>
+        </dd>
+        <dt><span>Social Id</span></dt>
+        <dd>
+            <span>{{contact.socialId}}</span>
+        </dd>
+        <dt><span>Sex</span></dt>
+        <dd>
+            <span>{{contact.sex}}</span>
+        </dd>
+        <dt><span>Registry Date</span></dt>
+        <dd>
+            <span>{{contact.registryDate}}</span>
+        </dd>
+        <dt><span>Update Date</span></dt>
+        <dd>
+            <span>{{contact.updateDate}}</span>
+        </dd>
+        <dt><span>Status</span></dt>
+        <dd>
+            <span>{{contact.status}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'contact/'+ contact.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

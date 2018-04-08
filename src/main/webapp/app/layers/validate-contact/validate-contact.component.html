@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h4>Validar contacto</h4>
+        <hr>
+        <div  class="form-group">
+            <label class="form-control-label">Correo</label>
+            <input type="text" class="form-control"
+                   [(ngModel)]="contact.email" />
+            <br>
+            <div *ngIf="notFinded" class="alert alert-warning" role="alert">
+                <span >El contacto no existe: <strong><a [routerLink]="['/new-contact']">Crear nuevo contacto</a></strong></span>
+            </div>
+            <div *ngIf="finded" class="alert alert-success" role="alert">
+                <span >El contacto existe: <strong><a [routerLink]="['/new-follow',contact.id]">Crearle nuevo seguimiento</a></strong></span>
+            </div>
+        </div>
+
+        <button (click)="find()" class="btn btn-primary">
+            <span>Buscar</span>
+        </button>
+
+    </div>
+</div>

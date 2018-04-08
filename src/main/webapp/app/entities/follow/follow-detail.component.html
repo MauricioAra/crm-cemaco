@@ -1,0 +1,72 @@
+
+<div *ngIf="follow">
+    <h2><span>Follow</span> {{follow.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Origin Contact</span></dt>
+        <dd>
+            <span>{{follow.originContact}}</span>
+        </dd>
+        <dt><span>Sub Origin Contact</span></dt>
+        <dd>
+            <span>{{follow.subOriginContact}}</span>
+        </dd>
+        <dt><span>Result</span></dt>
+        <dd>
+            <span>{{follow.result}}</span>
+        </dd>
+        <dt><span>Next Contact Date</span></dt>
+        <dd>
+            <span>{{follow.nextContactDate}}</span>
+        </dd>
+        <dt><span>Registry Date</span></dt>
+        <dd>
+            <span>{{follow.registryDate}}</span>
+        </dd>
+        <dt><span>Status</span></dt>
+        <dd>
+            <span>{{follow.status}}</span>
+        </dd>
+        <dt><span>Next Contact Reason</span></dt>
+        <dd>
+            <span>{{follow.nextContactReason}}</span>
+        </dd>
+        <dt><span>Favorite Card</span></dt>
+        <dd>
+            <span>{{follow.favoriteCard}}</span>
+        </dd>
+        <dt><span>Buy In Cemaco</span></dt>
+        <dd>
+            <span>{{follow.buyInCemaco}}</span>
+        </dd>
+        <dt><span>Interested Buy</span></dt>
+        <dd>
+            <span>{{follow.interestedBuy}}</span>
+        </dd>
+        <dt><span>Article</span></dt>
+        <dd>
+            <span>{{follow.article}}</span>
+        </dd>
+        <dt><span>Contact</span></dt>
+        <dd>
+            <div *ngIf="follow.contactId">
+                <a [routerLink]="['/contact', follow.contactId]">{{follow.contactName}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'follow/'+ follow.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>

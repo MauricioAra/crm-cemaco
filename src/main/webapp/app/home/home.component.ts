@@ -4,6 +4,10 @@ import { JhiEventManager } from 'ng-jhipster';
 
 import { Account, LoginModalService, Principal } from '../shared';
 
+import { Follow } from '../entities/follow/follow.model';
+import { FollowService } from '../entities/follow/follow.service';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+
 @Component({
     selector: 'jhi-home',
     templateUrl: './home.component.html',
@@ -13,13 +17,19 @@ import { Account, LoginModalService, Principal } from '../shared';
 
 })
 export class HomeComponent implements OnInit {
-    account: Account;
-    modalRef: NgbModalRef;
+    public account: Account;
+    public modalRef: NgbModalRef;
+    public follows:Follow[];
+    public now : any = new Date();
+    public currentDate:any;
+    public nextContact:any;
+    public registryDate:any;
 
     constructor(
         private principal: Principal,
         private loginModalService: LoginModalService,
-        private eventManager: JhiEventManager
+        private eventManager: JhiEventManager,
+        private followService:FollowService
     ) {
     }
 
@@ -28,6 +38,26 @@ export class HomeComponent implements OnInit {
             this.account = account;
         });
         this.registerAuthenticationSuccess();
+
+        let temp = this.now.getMonth()+1;
+        let temp2 = this.now.getDate();
+        this.currentDate = temp2+'-'+temp+'-'+this.now.getFullYear();
+
+        this.loadFollows(this.currentDate);
+    }
+
+    loadFollows(date){
+        this.followService.findBydate(date).subscribe(
+            (res: HttpResponse<Follow[]>) => {
+                this.follows = res.body;
+                console.log(this.follows);
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    }
+
+    private onError(error) {
+
     }
 
     registerAuthenticationSuccess() {
@@ -44,5 +74,22 @@ export class HomeComponent implements OnInit {
 
     login() {
         this.modalRef = this.loginModalService.open();
+    }
+
+    findByNextContact(date){
+        let tempDate = date.day.toString()+'-'+date.month.toString()+'-'+date.year.toString();
+        this.loadFollows(tempDate);
+    }
+
+    findByRegistryContact(date){
+        let tempDate = date.day.toString()+'-'+date.month.toString()+'-'+date.year.toString();
+        this.loadFollows(tempDate);
+    }
+
+    today(){
+        let temp = this.now.getMonth()+1;
+        let temp2 = this.now.getDate();
+        this.currentDate = temp2+'-'+temp+'-'+this.now.getFullYear();
+        this.loadFollows(this.currentDate);
     }
 }

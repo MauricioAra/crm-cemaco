@@ -1,0 +1,84 @@
+<div>
+    <h2>
+        <span>Follows</span>
+        <button class="btn btn-primary float-right jh-create-entity create-follow" [routerLink]="['/', { outlets: { popup: ['follow-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span >
+            Create new Follow
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="follows">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span>ID</span></th>
+            <th><span>Origin Contact</span></th>
+            <th><span>Sub Origin Contact</span></th>
+            <th><span>Result</span></th>
+            <th><span>Next Contact Date</span></th>
+            <th><span>Registry Date</span></th>
+            <th><span>Status</span></th>
+            <th><span>Next Contact Reason</span></th>
+            <th><span>Favorite Card</span></th>
+            <th><span>Buy In Cemaco</span></th>
+            <th><span>Interested Buy</span></th>
+            <th><span>Article</span></th>
+            <th><span>Contact</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let follow of follows ;trackBy: trackId">
+                <td><a [routerLink]="['../follow', follow.id ]">{{follow.id}}</a></td>
+                <td>{{follow.originContact}}</td>
+                <td>{{follow.subOriginContact}}</td>
+                <td>{{follow.result}}</td>
+                <td>{{follow.nextContactDate}}</td>
+                <td>{{follow.registryDate}}</td>
+                <td>{{follow.status}}</td>
+                <td>{{follow.nextContactReason}}</td>
+                <td>{{follow.favoriteCard}}</td>
+                <td>{{follow.buyInCemaco}}</td>
+                <td>{{follow.interestedBuy}}</td>
+                <td>{{follow.article}}</td>
+                <td>
+                    <div *ngIf="follow.contactId">
+                        <a [routerLink]="['../contact', follow.contactId  ]" >{{follow.contactName}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../follow', follow.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'follow/'+ follow.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'follow/'+ follow.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
