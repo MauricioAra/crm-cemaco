@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpResponse } from '@angular/common/http';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
+import { Observable } from 'rxjs/Observable';
 
 import { Follow } from './follow.model';
 import { FollowService } from './follow.service';
@@ -16,6 +17,8 @@ export class FollowDetailComponent implements OnInit, OnDestroy {
     follow: Follow;
     private subscription: Subscription;
     private eventSubscriber: Subscription;
+    public result:any;
+    public statusTemp:any = 'NC';
 
     constructor(
         private eventManager: JhiEventManager,
@@ -51,5 +54,26 @@ export class FollowDetailComponent implements OnInit, OnDestroy {
             'followListModification',
             (response) => this.load(this.follow.id)
         );
+    }
+
+    resgisterResult(){
+        (this.follow as any).result = this.result;
+        (this.follow as any).status = this.statusTemp;
+
+        this.subscribeToSaveResponse(
+            this.followService.update(this.follow));
+    }
+
+    private subscribeToSaveResponse(result: Observable<HttpResponse<Follow>>) {
+        result.subscribe((res: HttpResponse<Follow>) =>
+            this.onSaveSuccess(res.body), (res: HttpErrorResponse) => this.onSaveError());
+    }
+
+    private onSaveSuccess(result: Follow) {
+
+    }
+
+    private onSaveError() {
+
     }
 }

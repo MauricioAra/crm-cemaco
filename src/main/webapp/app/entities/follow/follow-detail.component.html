@@ -1,72 +1,145 @@
-
 <div *ngIf="follow">
-    <h2><span>Follow</span> {{follow.id}}</h2>
-    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <span class="fa fa-arrow-left"></span>&nbsp;<span> Número de seguimiento:</span> {{follow.id}}</span>
+            </button>
+            <hr>
+        </div>
+    </div>
     <jhi-alert-error></jhi-alert-error>
-    <dl class="row-md jh-entity-details">
-        <dt><span>Origin Contact</span></dt>
-        <dd>
-            <span>{{follow.originContact}}</span>
-        </dd>
-        <dt><span>Sub Origin Contact</span></dt>
-        <dd>
-            <span>{{follow.subOriginContact}}</span>
-        </dd>
-        <dt><span>Result</span></dt>
-        <dd>
-            <span>{{follow.result}}</span>
-        </dd>
-        <dt><span>Next Contact Date</span></dt>
-        <dd>
-            <span>{{follow.nextContactDate}}</span>
-        </dd>
-        <dt><span>Registry Date</span></dt>
-        <dd>
-            <span>{{follow.registryDate}}</span>
-        </dd>
-        <dt><span>Status</span></dt>
-        <dd>
-            <span>{{follow.status}}</span>
-        </dd>
-        <dt><span>Next Contact Reason</span></dt>
-        <dd>
-            <span>{{follow.nextContactReason}}</span>
-        </dd>
-        <dt><span>Favorite Card</span></dt>
-        <dd>
-            <span>{{follow.favoriteCard}}</span>
-        </dd>
-        <dt><span>Buy In Cemaco</span></dt>
-        <dd>
-            <span>{{follow.buyInCemaco}}</span>
-        </dd>
-        <dt><span>Interested Buy</span></dt>
-        <dd>
-            <span>{{follow.interestedBuy}}</span>
-        </dd>
-        <dt><span>Article</span></dt>
-        <dd>
-            <span>{{follow.article}}</span>
-        </dd>
-        <dt><span>Contact</span></dt>
-        <dd>
-            <div *ngIf="follow.contactId">
-                <a [routerLink]="['/contact', follow.contactId]">{{follow.contactName}}</a>
-            </div>
-        </dd>
-    </dl>
 
-    <button type="submit"
-            (click)="previousState()"
-            class="btn btn-info">
-        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
-    </button>
+    <div class="row">
+        <div class="col-md-6">
+            <dt><span>Origen de contacto</span></dt>
+            <dd>
+                <span *ngIf="follow.originContact == '1'">Daily Planet</span>
+                <span *ngIf="follow.originContact == '2'">Once Noticias</span>
+                <span *ngIf="follow.originContact == '3'">Otro</span>
+            </dd>
 
-    <button type="button"
-            [routerLink]="['/', { outlets: { popup: 'follow/'+ follow.id + '/edit'} }]"
-            replaceUrl="true"
-            queryParamsHandling="merge"
-            class="btn btn-primary">
-        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
-    </button>
+            <hr>
+
+            <dt><span>Fecha de siguiente contacto</span></dt>
+            <dd>
+                <span>{{follow.nextContactDate}}</span>
+            </dd>
+
+            <hr>
+
+            <dt><span>Fecha de registro</span></dt>
+            <dd>
+                <span>{{follow.registryDate}}</span>
+            </dd>
+
+            <hr>
+
+            <dt><span>Estado</span></dt>
+            <dd>
+                <span class="btn btn-warning" *ngIf="follow.status == 'P'">Pendiente</span>
+                <span class="btn btn-success" *ngIf="follow.status == 'C'">Completado</span>
+                <span class="btn btn-danger" *ngIf="follow.status == 'NC'">No completado</span>
+            </dd>
+
+            <hr>
+
+            <dt><span>¿Interesado en comprar?</span></dt>
+            <dd>
+                <span>{{follow.interestedBuy}}</span>
+            </dd>
+
+            <hr>
+
+            <dt><span>Resultado</span></dt>
+            <dd>
+                <span>{{follow.result}}</span>
+            </dd>
+        </div>
+        <div class="col-md-6">
+            <dt><span>Mediante</span></dt>
+            <dd>
+                <span>{{follow.subOriginContact}}</span>
+            </dd>
+
+            <hr>
+
+            <dt><span>Razón del contacto</span></dt>
+            <dd>
+                <span>{{follow.nextContactReason}}</span>
+            </dd>
+
+            <hr>
+
+            <dt><span>Contacto</span></dt>
+            <dd>
+                <div *ngIf="follow.contactId">
+                    <a [routerLink]="['/contact', follow.contactId]">{{follow.contactName}}</a>
+                </div>
+            </dd>
+
+            <hr>
+
+            <dt><span>¿Ha comprado en cemaco?</span></dt>
+            <dd>
+                <span>{{follow.buyInCemaco}}</span>
+            </dd>
+
+            <hr>
+
+            <dt><span>Artículo</span></dt>
+            <dd>
+                <span>{{follow.article}}</span>
+            </dd>
+        </div>
+    </div>
 </div>
+
+<div class="row" *ngIf="follow.status == 'P'">
+    <div class="col-md-12">
+        <hr>
+        <div class="alert alert-warning" role="alert">
+            <dt><strong>El resultado se encuentra pendiente, agregar un resultado al seguimiento</strong></dt>
+            <div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_article">Resultado</label>
+                    <input type="text" class="form-control" name="article" id="field_article"
+                           [(ngModel)]="result" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-control-label">Estado del resultado</label>
+                <div class="form-group">
+                    <div ngbRadioGroup name="subOriginContact" [(ngModel)]="statusTemp">
+                        <label ngbButtonLabel>
+                            <input ngbButton type="radio" [value]="'C'"> Completado
+                        </label>
+                        <label ngbButtonLabel>
+                            <input ngbButton type="radio" [value]="'NC'"> No completado
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button type="submit"
+                        (click)="resgisterResult()"
+                        class="btn btn-warning">
+                    <span class="fa fa-save"></span>&nbsp;<span> Guardar</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+    <!--<button type="button"-->
+            <!--[routerLink]="['/', { outlets: { popup: 'follow/'+ follow.id + '/edit'} }]"-->
+            <!--replaceUrl="true"-->
+            <!--queryParamsHandling="merge"-->
+            <!--class="btn btn-primary">-->
+        <!--<span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>-->
+    <!--</button>-->
+

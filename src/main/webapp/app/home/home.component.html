@@ -76,9 +76,9 @@
                             <td>{{follow.nextContactDate}}</td>
                             <td>{{follow.registryDate}}</td>
                             <td>
-                                <span *ngIf="follow.status == 'P'">Pendiente</span>
-                                <span *ngIf="follow.status == 'C'">Completado</span>
-                                <span *ngIf="follow.status == 'NC'">No completado</span>
+                                <span class="btn btn-warning" *ngIf="follow.status == 'P'">Pendiente</span>
+                                <span class="btn btn-success" *ngIf="follow.status == 'C'">Completado</span>
+                                <span class="btn btn-danger" *ngIf="follow.status == 'NC'">No completado</span>
                             <td>{{follow.nextContactReason}}</td>
                             <td>{{follow.result}}</td>
                             <td>
