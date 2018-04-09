@@ -31,6 +31,8 @@ public class ContactDTO implements Serializable {
 
     private String status;
 
+    private String phone;
+
     public Long getId() {
         return id;
     }
@@ -111,6 +113,14 @@ public class ContactDTO implements Serializable {
         this.status = status;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -145,6 +155,7 @@ public class ContactDTO implements Serializable {
             ", registryDate='" + getRegistryDate() + "'" +
             ", updateDate='" + getUpdateDate() + "'" +
             ", status='" + getStatus() + "'" +
+            ", phone='" + getPhone() + "'" +
             "}";
     }
 }

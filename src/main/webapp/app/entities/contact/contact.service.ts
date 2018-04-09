@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { SERVER_API_URL } from '../../app.constants';
 
 import { Contact } from './contact.model';
+import { Follow } from '../follow/follow.model';
 import { createRequestOption } from '../../shared';
 
 export type EntityResponseType = HttpResponse<Contact>;
@@ -13,6 +14,7 @@ export class ContactService {
 
     private resourceUrl =  SERVER_API_URL + 'api/contacts';
     private resourceUrlFindEmail =  SERVER_API_URL + 'api/contacts/find-email';
+    private resourceUrlByContacts =  SERVER_API_URL + 'api/follows/all-by-contact';
 
     constructor(private http: HttpClient) { }
 
@@ -47,6 +49,11 @@ export class ContactService {
         const copy = this.convert(contact);
         return this.http.post<Contact>(this.resourceUrlFindEmail, copy, { observe: 'response' })
             .map((res: EntityResponseType) => this.convertResponse(res));
+    }
+
+    findFollowByContact(id: any): Observable<HttpResponse<Follow[]>> {
+        return this.http.get<Follow[]>(`${this.resourceUrlByContacts}/${id}`, { observe: 'response'})
+            .map((res: HttpResponse<Follow[]>) => this.convertArrayResponse(res));
     }
 
     private convertResponse(res: EntityResponseType): EntityResponseType {

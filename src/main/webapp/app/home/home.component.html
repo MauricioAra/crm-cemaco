@@ -118,8 +118,13 @@
                 </div>
             </div>
             <!--NO LOGUEADO-->
-            <div  *ngSwitchCase="false">
-                Bienvenido al Crm de CEMACO
+            <div  *ngSwitchCase="false" style="position: fixed;top: 0;left: 0;bottom: 0;right: 0;overflow: auto;background: #bacf3c;">
+                <h2 style="text-align: center;color: #fff;margin-top: 30px">Bienvenido(a) al Crm de CEMACO</h2>
+
+                <button class="btn-out-white" (click)="login()" id="login">
+                    <h4>Iniciar sesión en el Crm</h4>
+                </button>
+
             </div>
         </div>
 

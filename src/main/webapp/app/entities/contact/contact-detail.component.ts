@@ -1,18 +1,19 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpResponse } from '@angular/common/http';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 import { JhiEventManager } from 'ng-jhipster';
 
 import { Contact } from './contact.model';
 import { ContactService } from './contact.service';
+import { Follow } from '../follow/follow.model';
 
 @Component({
     selector: 'jhi-contact-detail',
     templateUrl: './contact-detail.component.html'
 })
 export class ContactDetailComponent implements OnInit, OnDestroy {
-
+    follows:Follow[];
     contact: Contact;
     private subscription: Subscription;
     private eventSubscriber: Subscription;
@@ -36,7 +37,21 @@ export class ContactDetailComponent implements OnInit, OnDestroy {
             .subscribe((contactResponse: HttpResponse<Contact>) => {
                 this.contact = contactResponse.body;
             });
+
+        this.contactService.findFollowByContact(id).subscribe(
+            (res: HttpResponse<Follow[]>) => {
+                this.follows = res.body;
+                console.log(this.follows);
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+
     }
+
+    private onError(error) {
+
+    }
+
     previousState() {
         window.history.back();
     }

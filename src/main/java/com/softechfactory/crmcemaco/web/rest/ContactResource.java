@@ -2,7 +2,6 @@ package com.softechfactory.crmcemaco.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.softechfactory.crmcemaco.service.ContactService;
-import com.softechfactory.crmcemaco.service.dto.FollowDTO;
 import com.softechfactory.crmcemaco.web.rest.errors.BadRequestAlertException;
 import com.softechfactory.crmcemaco.web.rest.util.HeaderUtil;
 import com.softechfactory.crmcemaco.service.dto.ContactDTO;
@@ -126,5 +125,4 @@ public class ContactResource {
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
-
 }

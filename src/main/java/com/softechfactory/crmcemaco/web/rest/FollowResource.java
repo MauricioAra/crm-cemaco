@@ -128,4 +128,13 @@ public class FollowResource {
         List<FollowDTO> followDTOS = followService.findFollowByRegistryDate(date);
         return followDTOS;
     }
+
+    @GetMapping("/follows/all-by-contact/{id}")
+    @Timed
+    public List<FollowDTO> findFollowByContact(@PathVariable Long id) {
+        List<FollowDTO> followDTOS = followService.findFollowByContact(id);
+        return followDTOS;
+    }
+
+
 }

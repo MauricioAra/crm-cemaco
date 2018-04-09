@@ -49,6 +49,9 @@ public class Contact implements Serializable {
     @Column(name = "status")
     private String status;
 
+    @Column(name = "phone")
+    private String phone;
+
     @OneToMany(mappedBy = "contact")
     @JsonIgnore
     private Set<Follow> follows = new HashSet<>();
@@ -179,6 +182,19 @@ public class Contact implements Serializable {
         this.status = status;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public Contact phone(String phone) {
+        this.phone = phone;
+        return this;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public Set<Follow> getFollows() {
         return follows;
     }
@@ -238,6 +254,7 @@ public class Contact implements Serializable {
             ", registryDate='" + getRegistryDate() + "'" +
             ", updateDate='" + getUpdateDate() + "'" +
             ", status='" + getStatus() + "'" +
+            ", phone='" + getPhone() + "'" +
             "}";
     }
 }

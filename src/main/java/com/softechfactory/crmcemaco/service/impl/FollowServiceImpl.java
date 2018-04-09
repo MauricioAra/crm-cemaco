@@ -98,4 +98,11 @@ public class FollowServiceImpl implements FollowService {
             .map(followMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
     }
+
+    @Override
+    public List<FollowDTO> findFollowByContact(Long id) {
+        return followRepository.findAllByContactId(id).stream()
+            .map(followMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
+    }
 }

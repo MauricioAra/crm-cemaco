@@ -16,4 +16,5 @@ import java.util.List;
 public interface FollowRepository extends JpaRepository<Follow, Long> {
     List<Follow> findAllByNextContactDate(String date);
     List<Follow> findAllByRegistryDate(String date);
+    List<Follow> findAllByContactId(Long id);
 }

@@ -12,6 +12,7 @@ export class Contact implements BaseEntity {
         public registryDate?: string,
         public updateDate?: string,
         public status?: string,
+        public phone?: string,
         public follows?: BaseEntity[],
     ) {
     }

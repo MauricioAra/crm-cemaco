@@ -44,12 +44,16 @@
         {
             "fieldName": "status",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "phone",
+            "fieldType": "String"
         }
     ],
     "changelogDate": "20180407052012",
-    "entityTableName": "contact",
     "dto": "mapstruct",
-    "pagination": "no",
     "service": "serviceImpl",
-    "jpaMetamodelFiltering": false
+    "entityTableName": "contact",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no"
 }

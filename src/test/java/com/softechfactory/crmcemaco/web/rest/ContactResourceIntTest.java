@@ -68,6 +68,9 @@ public class ContactResourceIntTest {
     private static final String DEFAULT_STATUS = "AAAAAAAAAA";
     private static final String UPDATED_STATUS = "BBBBBBBBBB";
 
+    private static final String DEFAULT_PHONE = "AAAAAAAAAA";
+    private static final String UPDATED_PHONE = "BBBBBBBBBB";
+
     @Autowired
     private ContactRepository contactRepository;
 
@@ -120,7 +123,8 @@ public class ContactResourceIntTest {
             .sex(DEFAULT_SEX)
             .registryDate(DEFAULT_REGISTRY_DATE)
             .updateDate(DEFAULT_UPDATE_DATE)
-            .status(DEFAULT_STATUS);
+            .status(DEFAULT_STATUS)
+            .phone(DEFAULT_PHONE);
         return contact;
     }
 
@@ -154,6 +158,7 @@ public class ContactResourceIntTest {
         assertThat(testContact.getRegistryDate()).isEqualTo(DEFAULT_REGISTRY_DATE);
         assertThat(testContact.getUpdateDate()).isEqualTo(DEFAULT_UPDATE_DATE);
         assertThat(testContact.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testContact.getPhone()).isEqualTo(DEFAULT_PHONE);
     }
 
     @Test
@@ -195,7 +200,8 @@ public class ContactResourceIntTest {
             .andExpect(jsonPath("$.[*].sex").value(hasItem(DEFAULT_SEX.toString())))
             .andExpect(jsonPath("$.[*].registryDate").value(hasItem(DEFAULT_REGISTRY_DATE.toString())))
             .andExpect(jsonPath("$.[*].updateDate").value(hasItem(DEFAULT_UPDATE_DATE.toString())))
-            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())));
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
+            .andExpect(jsonPath("$.[*].phone").value(hasItem(DEFAULT_PHONE.toString())));
     }
 
     @Test
@@ -217,7 +223,8 @@ public class ContactResourceIntTest {
             .andExpect(jsonPath("$.sex").value(DEFAULT_SEX.toString()))
             .andExpect(jsonPath("$.registryDate").value(DEFAULT_REGISTRY_DATE.toString()))
             .andExpect(jsonPath("$.updateDate").value(DEFAULT_UPDATE_DATE.toString()))
-            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()));
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
+            .andExpect(jsonPath("$.phone").value(DEFAULT_PHONE.toString()));
     }
 
     @Test
@@ -248,7 +255,8 @@ public class ContactResourceIntTest {
             .sex(UPDATED_SEX)
             .registryDate(UPDATED_REGISTRY_DATE)
             .updateDate(UPDATED_UPDATE_DATE)
-            .status(UPDATED_STATUS);
+            .status(UPDATED_STATUS)
+            .phone(UPDATED_PHONE);
         ContactDTO contactDTO = contactMapper.toDto(updatedContact);
 
         restContactMockMvc.perform(put("/api/contacts")
@@ -269,6 +277,7 @@ public class ContactResourceIntTest {
         assertThat(testContact.getRegistryDate()).isEqualTo(UPDATED_REGISTRY_DATE);
         assertThat(testContact.getUpdateDate()).isEqualTo(UPDATED_UPDATE_DATE);
         assertThat(testContact.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testContact.getPhone()).isEqualTo(UPDATED_PHONE);
     }
 
     @Test

@@ -68,7 +68,7 @@ class ContactGatlingTest extends Simulation {
             .exec(http("Create new contact")
             .post("/api/contacts")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "name":"SAMPLE_TEXT", "firstName":"SAMPLE_TEXT", "lastName":"SAMPLE_TEXT", "email":"SAMPLE_TEXT", "socialId":"SAMPLE_TEXT", "sex":"SAMPLE_TEXT", "registryDate":"SAMPLE_TEXT", "updateDate":"SAMPLE_TEXT", "status":"SAMPLE_TEXT"}""")).asJSON
+            .body(StringBody("""{"id":null, "name":"SAMPLE_TEXT", "firstName":"SAMPLE_TEXT", "lastName":"SAMPLE_TEXT", "email":"SAMPLE_TEXT", "socialId":"SAMPLE_TEXT", "sex":"SAMPLE_TEXT", "registryDate":"SAMPLE_TEXT", "updateDate":"SAMPLE_TEXT", "status":"SAMPLE_TEXT", "phone":"SAMPLE_TEXT"}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_contact_url"))).exitHereIfFailed
             .pause(10)

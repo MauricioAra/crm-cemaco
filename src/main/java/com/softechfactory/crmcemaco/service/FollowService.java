@@ -41,4 +41,6 @@ public interface FollowService {
     List<FollowDTO> findFollowByNextContact(String date);
 
     List<FollowDTO> findFollowByRegistryDate(String date);
+
+    List<FollowDTO> findFollowByContact(Long id);
 }

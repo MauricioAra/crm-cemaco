@@ -28,3 +28,17 @@ only screen and (                min-resolution: 2dppx) {
         background-size: contain;
     }
 }
+
+
+.btn-out-white{
+    position: relative;
+    float: left;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    background-color: transparent;
+    border:1px solid white;
+    border-radius: 3px;
+    padding: 10px;
+}

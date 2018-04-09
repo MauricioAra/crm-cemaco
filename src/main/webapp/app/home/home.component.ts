@@ -64,6 +64,11 @@ export class HomeComponent implements OnInit {
         this.eventManager.subscribe('authenticationSuccess', (message) => {
             this.principal.identity().then((account) => {
                 this.account = account;
+                let temp = this.now.getMonth()+1;
+                let temp2 = this.now.getDate();
+                this.currentDate = temp2+'-'+temp+'-'+this.now.getFullYear();
+
+                this.loadFollows(this.currentDate);
             });
         });
     }

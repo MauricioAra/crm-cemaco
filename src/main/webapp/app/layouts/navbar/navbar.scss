@@ -4,7 +4,7 @@ Navbar
 ========================================================================== */
 .navbar-version {
     font-size: 10px;
-    color: #ccc
+    color: #353d47
 }
 
 .jh-navbar {
@@ -32,11 +32,11 @@ Navbar
         font-weight: 400;
     }
     .jh-navbar-toggler {
-        color: #ccc;
+        color: #353d47;
         font-size: 1.5em;
         padding: 10px;
         &:hover {
-            color: #fff;
+            color: #353d47;
         }
     }
 }
@@ -65,11 +65,11 @@ Logo styles
     &.logo {
         padding: 5px 15px;
         .logo-img {
-            height: 45px;
-            width: 70px;
+            height: 65px;
+            width: 150px;
             display: inline-block;
             vertical-align: middle;
-            background: url("../../../content/images/logo-jhipster.png") no-repeat center center;
+            background: url("http://res.cloudinary.com/dmo8iejlq/image/upload/v1523208311/cemaco/cemaco.png") no-repeat center center;
             background-size: contain;
         }
     }
