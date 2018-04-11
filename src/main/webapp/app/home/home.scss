@@ -24,7 +24,7 @@ only screen and (        min-device-pixel-ratio: 2),
 only screen and (                min-resolution: 192dpi),
 only screen and (                min-resolution: 2dppx) {
     .hipster {
-        background: url("../../content/images/hipster2x.png") no-repeat center top;
+        background: url("../../content/images/cemaco_back.png") no-repeat center top;
         background-size: contain;
     }
 }
@@ -34,11 +34,22 @@ only screen and (                min-resolution: 2dppx) {
     position: relative;
     float: left;
     top: 40%;
-    left: 50%;
+    left: 30%;
     transform: translate(-50%, -50%);
-    color: #fff;
+    color: #31509d;
     background-color: transparent;
-    border:1px solid white;
+    border:2px solid #31509d;
     border-radius: 3px;
     padding: 10px;
+    font-weight: bold;
+}
+
+.back-ground{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: url("../../content/images/cemaco_back.png") no-repeat center center;
+    background-size: cover;
 }

@@ -1,74 +1,175 @@
-
 <div *ngIf="contact">
-    <h2><span>Contact</span> {{contact.id}}</h2>
-    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <span class="fa fa-arrow-left"></span>&nbsp;<span> Número del contacto:</span> {{contact.id}}</span>
+            </button>
+            <button type="button"
+                    [routerLink]="['/', { outlets: { popup: 'contact/'+ contact.id + '/edit'} }]"
+                    replaceUrl="true"
+                    queryParamsHandling="merge"
+                    class="btn btn-success">
+                <span class="fa fa-pencil"></span>&nbsp;<span> Editar</span>
+            </button>
+            <button type="button"
+                    [routerLink]="['/new-follow',contact.id]"
+                    replaceUrl="true"
+                    queryParamsHandling="merge"
+                    class="btn btn-success">
+                <span class="fa fa-plus"></span>&nbsp;<span> Nuevo seguimiento</span>
+            </button>
+            <hr>
+        </div>
+    </div>
     <jhi-alert-error></jhi-alert-error>
-    <dl class="row-md jh-entity-details">
-        <dt><span>Name</span></dt>
-        <dd>
-            <span>{{contact.name}}</span>
-        </dd>
-        <dt><span>First Name</span></dt>
-        <dd>
-            <span>{{contact.firstName}}</span>
-        </dd>
-        <dt><span>Last Name</span></dt>
-        <dd>
-            <span>{{contact.lastName}}</span>
-        </dd>
-        <dt><span>Email</span></dt>
-        <dd>
-            <span>{{contact.email}}</span>
-        </dd>
-        <dt><span>Social Id</span></dt>
-        <dd>
-            <span>{{contact.socialId}}</span>
-        </dd>
-        <dt><span>Sex</span></dt>
-        <dd>
-            <span>{{contact.sex}}</span>
-        </dd>
-        <dt><span>Registry Date</span></dt>
-        <dd>
-            <span>{{contact.registryDate}}</span>
-        </dd>
-        <dt><span>Update Date</span></dt>
-        <dd>
-            <span>{{contact.updateDate}}</span>
-        </dd>
-        <dt><span>Status</span></dt>
-        <dd>
-            <span>{{contact.status}}</span>
-        </dd>
-        <dt><span>Phone</span></dt>
-        <dd>
-            <span>{{contact.phone}}</span>
-        </dd>
-        <dt><span>Origin</span></dt>
-        <dd>
-            <span>{{contact.origin}}</span>
-        </dd>
-        <dt><span>Interest</span></dt>
-        <dd>
-            <span>{{contact.interest}}</span>
-        </dd>
-        <dt><span>Referer</span></dt>
-        <dd>
-            <span>{{contact.referer}}</span>
-        </dd>
-    </dl>
+    <div class="row">
+        <div class="col-md-6">
+            <dt><span>Nombre completo</span></dt>
+            <dd>
+                <span>{{contact.name}} {{contact.firstName}} {{contact.lastName}}</span>
+            </dd>
 
-    <button type="submit"
-            (click)="previousState()"
-            class="btn btn-info">
-        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
-    </button>
+            <hr>
 
-    <button type="button"
-            [routerLink]="['/', { outlets: { popup: 'contact/'+ contact.id + '/edit'} }]"
-            replaceUrl="true"
-            queryParamsHandling="merge"
-            class="btn btn-primary">
-        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
-    </button>
+            <dt><span>Cédula</span></dt>
+            <dd>
+                <span>{{contact.socialId}}</span>
+            </dd>
+
+            <hr>
+
+            <dt><span>Fecha de registro</span></dt>
+            <dd>
+                <span>{{contact.registryDate}}</span>
+            </dd>
+
+            <hr>
+
+            <dt><span>Celular</span></dt>
+            <dd>
+                <span>{{contact.phone}}</span>
+            </dd>
+
+            <hr>
+
+            <dt><span>Origen</span></dt>
+            <dd>
+                <span>{{contact.origin}}</span>
+            </dd>
+
+        </div>
+        <div class="col-md-6">
+            <dt><span>Correo</span></dt>
+            <dd>
+                <span>{{contact.email}}</span>
+            </dd>
+
+            <hr>
+
+            <dt><span>Género</span></dt>
+            <dd>
+                <span *ngIf="contact.sex == 'h'">Hombre</span>
+                <span *ngIf="contact.sex == 'm'">Mujer</span>
+                <span *ngIf="contact.sex == 'o'">Otro</span>
+            </dd>
+
+            <hr>
+
+            <dt><span>Última fecha de modificación</span></dt>
+            <dd>
+                <span>{{contact.updateDate}}</span>
+            </dd>
+
+            <hr>
+
+            <dt><span>Estado</span></dt>
+            <dd>
+                <span *ngIf="contact.status == 'PL'">Potencial Lead</span>
+                <span *ngIf="contact.status == 'L'">Lead</span>
+            </dd>
+
+            <hr>
+
+            <dt><span>Interes</span></dt>
+            <dd>
+                <span>{{contact.interest}}</span>
+            </dd>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Seguimientos de <span>{{contact.name}} {{contact.firstName}} {{contact.lastName}}</span></h4>
+            <div class="table-responsive" *ngIf="follows">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th><span>Serie</span></th>
+                        <th><span>Origen del contacto</span></th>
+                        <th><span>Mediante</span></th>
+                        <th><span>Próximo contacto</span></th>
+                        <th><span>Fecha de registro</span></th>
+                        <th><span>Estado</span></th>
+                        <th><span>Razón de contacto</span></th>
+                        <th><span>Resultado</span></th>
+                        <th><span>Contacto</span></th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let follow of follows ;trackBy: trackId">
+                        <td><a [routerLink]="['../follow', follow.id ]">{{follow.id}}</a></td>
+                        <td>
+                            <span *ngIf="follow.originContact == '1'">Daily planet</span>
+                            <span *ngIf="follow.originContact == '2'">Once noticias</span>
+                            <span *ngIf="follow.originContact == '3'">Otro</span>
+                        </td>
+                        <td>{{follow.subOriginContact}}</td>
+                        <td>{{follow.nextContactDate}}</td>
+                        <td>{{follow.registryDate}}</td>
+                        <td>
+                            <span class="btn btn-warning" *ngIf="follow.status == 'P'">Pendiente</span>
+                            <span class="btn btn-success" *ngIf="follow.status == 'C'">Completado</span>
+                            <span class="btn btn-danger" *ngIf="follow.status == 'NC'">No completado</span>
+                        <td>{{follow.nextContactReason}}</td>
+                        <td>{{follow.result}}</td>
+                        <td>
+                            <div *ngIf="follow.contactId">
+                                <a [routerLink]="['../contact', follow.contactId  ]" >{{follow.contactName}}</a>
+                            </div>
+                        </td>
+                        <td class="text-right">
+                            <div class="btn-group flex-btn-group-container">
+                                <button type="submit"
+                                        [routerLink]="['../follow', follow.id ]"
+                                        class="btn btn-info btn-sm">
+                                    <span class="fa fa-eye"></span>
+                                    <span class="d-none d-md-inline">Detalles</span>
+                                </button>
+                                <!--<button type="submit"-->
+                                <!--[routerLink]="['/', { outlets: { popup: 'follow/'+ follow.id + '/edit'} }]"-->
+                                <!--replaceUrl="true"-->
+                                <!--queryParamsHandling="merge"-->
+                                <!--class="btn btn-primary btn-sm">-->
+                                <!--<span class="fa fa-pencil"></span>-->
+                                <!--<span class="d-none d-md-inline">Edit</span>-->
+                                <!--</button>-->
+                                <!--<button type="submit"-->
+                                <!--[routerLink]="['/', { outlets: { popup: 'follow/'+ follow.id + '/delete'} }]"-->
+                                <!--replaceUrl="true"-->
+                                <!--queryParamsHandling="merge"-->
+                                <!--class="btn btn-danger btn-sm">-->
+                                <!--<span class="fa fa-remove"></span>-->
+                                <!--<span class="d-none d-md-inline">Delete</span>-->
+                                <!--</button>-->
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>

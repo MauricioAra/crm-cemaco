@@ -12,6 +12,7 @@
             </div>
             <div *ngIf="finded" class="alert alert-success" role="alert">
                 <span >El contacto existe: <strong><a [routerLink]="['/new-follow',contact.id]">Crearle nuevo seguimiento</a></strong></span>
+                <span >/ <strong><a [routerLink]="['/contact',contact.id]">Ver perfil</a></strong></span>
             </div>
         </div>
 
@@ -21,3 +22,4 @@
 
     </div>
 </div>
+<!--odettecarvajal2011@hotmail.com-->
