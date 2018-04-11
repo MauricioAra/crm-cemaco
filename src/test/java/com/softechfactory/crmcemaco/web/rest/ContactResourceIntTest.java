@@ -71,6 +71,15 @@ public class ContactResourceIntTest {
     private static final String DEFAULT_PHONE = "AAAAAAAAAA";
     private static final String UPDATED_PHONE = "BBBBBBBBBB";
 
+    private static final String DEFAULT_ORIGIN = "AAAAAAAAAA";
+    private static final String UPDATED_ORIGIN = "BBBBBBBBBB";
+
+    private static final String DEFAULT_INTEREST = "AAAAAAAAAA";
+    private static final String UPDATED_INTEREST = "BBBBBBBBBB";
+
+    private static final Long DEFAULT_REFERER = 1L;
+    private static final Long UPDATED_REFERER = 2L;
+
     @Autowired
     private ContactRepository contactRepository;
 
@@ -124,7 +133,10 @@ public class ContactResourceIntTest {
             .registryDate(DEFAULT_REGISTRY_DATE)
             .updateDate(DEFAULT_UPDATE_DATE)
             .status(DEFAULT_STATUS)
-            .phone(DEFAULT_PHONE);
+            .phone(DEFAULT_PHONE)
+            .origin(DEFAULT_ORIGIN)
+            .interest(DEFAULT_INTEREST)
+            .referer(DEFAULT_REFERER);
         return contact;
     }
 
@@ -159,6 +171,9 @@ public class ContactResourceIntTest {
         assertThat(testContact.getUpdateDate()).isEqualTo(DEFAULT_UPDATE_DATE);
         assertThat(testContact.getStatus()).isEqualTo(DEFAULT_STATUS);
         assertThat(testContact.getPhone()).isEqualTo(DEFAULT_PHONE);
+        assertThat(testContact.getOrigin()).isEqualTo(DEFAULT_ORIGIN);
+        assertThat(testContact.getInterest()).isEqualTo(DEFAULT_INTEREST);
+        assertThat(testContact.getReferer()).isEqualTo(DEFAULT_REFERER);
     }
 
     @Test
@@ -201,7 +216,10 @@ public class ContactResourceIntTest {
             .andExpect(jsonPath("$.[*].registryDate").value(hasItem(DEFAULT_REGISTRY_DATE.toString())))
             .andExpect(jsonPath("$.[*].updateDate").value(hasItem(DEFAULT_UPDATE_DATE.toString())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
-            .andExpect(jsonPath("$.[*].phone").value(hasItem(DEFAULT_PHONE.toString())));
+            .andExpect(jsonPath("$.[*].phone").value(hasItem(DEFAULT_PHONE.toString())))
+            .andExpect(jsonPath("$.[*].origin").value(hasItem(DEFAULT_ORIGIN.toString())))
+            .andExpect(jsonPath("$.[*].interest").value(hasItem(DEFAULT_INTEREST.toString())))
+            .andExpect(jsonPath("$.[*].referer").value(hasItem(DEFAULT_REFERER.intValue())));
     }
 
     @Test
@@ -224,7 +242,10 @@ public class ContactResourceIntTest {
             .andExpect(jsonPath("$.registryDate").value(DEFAULT_REGISTRY_DATE.toString()))
             .andExpect(jsonPath("$.updateDate").value(DEFAULT_UPDATE_DATE.toString()))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
-            .andExpect(jsonPath("$.phone").value(DEFAULT_PHONE.toString()));
+            .andExpect(jsonPath("$.phone").value(DEFAULT_PHONE.toString()))
+            .andExpect(jsonPath("$.origin").value(DEFAULT_ORIGIN.toString()))
+            .andExpect(jsonPath("$.interest").value(DEFAULT_INTEREST.toString()))
+            .andExpect(jsonPath("$.referer").value(DEFAULT_REFERER.intValue()));
     }
 
     @Test
@@ -256,7 +277,10 @@ public class ContactResourceIntTest {
             .registryDate(UPDATED_REGISTRY_DATE)
             .updateDate(UPDATED_UPDATE_DATE)
             .status(UPDATED_STATUS)
-            .phone(UPDATED_PHONE);
+            .phone(UPDATED_PHONE)
+            .origin(UPDATED_ORIGIN)
+            .interest(UPDATED_INTEREST)
+            .referer(UPDATED_REFERER);
         ContactDTO contactDTO = contactMapper.toDto(updatedContact);
 
         restContactMockMvc.perform(put("/api/contacts")
@@ -278,6 +302,9 @@ public class ContactResourceIntTest {
         assertThat(testContact.getUpdateDate()).isEqualTo(UPDATED_UPDATE_DATE);
         assertThat(testContact.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testContact.getPhone()).isEqualTo(UPDATED_PHONE);
+        assertThat(testContact.getOrigin()).isEqualTo(UPDATED_ORIGIN);
+        assertThat(testContact.getInterest()).isEqualTo(UPDATED_INTEREST);
+        assertThat(testContact.getReferer()).isEqualTo(UPDATED_REFERER);
     }
 
     @Test

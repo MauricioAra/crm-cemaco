@@ -33,6 +33,12 @@ public class ContactDTO implements Serializable {
 
     private String phone;
 
+    private String origin;
+
+    private String interest;
+
+    private Long referer;
+
     public Long getId() {
         return id;
     }
@@ -121,6 +127,30 @@ public class ContactDTO implements Serializable {
         this.phone = phone;
     }
 
+    public String getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
+
+    public String getInterest() {
+        return interest;
+    }
+
+    public void setInterest(String interest) {
+        this.interest = interest;
+    }
+
+    public Long getReferer() {
+        return referer;
+    }
+
+    public void setReferer(Long referer) {
+        this.referer = referer;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -156,6 +186,9 @@ public class ContactDTO implements Serializable {
             ", updateDate='" + getUpdateDate() + "'" +
             ", status='" + getStatus() + "'" +
             ", phone='" + getPhone() + "'" +
+            ", origin='" + getOrigin() + "'" +
+            ", interest='" + getInterest() + "'" +
+            ", referer=" + getReferer() +
             "}";
     }
 }

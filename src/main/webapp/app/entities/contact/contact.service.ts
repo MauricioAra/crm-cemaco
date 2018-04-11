@@ -15,7 +15,6 @@ export class ContactService {
     private resourceUrl =  SERVER_API_URL + 'api/contacts';
     private resourceUrlFindEmail =  SERVER_API_URL + 'api/contacts/find-email';
     private resourceUrlByContacts =  SERVER_API_URL + 'api/follows/all-by-contact';
-
     constructor(private http: HttpClient) { }
 
     create(contact: Contact): Observable<EntityResponseType> {
@@ -55,7 +54,6 @@ export class ContactService {
         return this.http.get<Follow[]>(`${this.resourceUrlByContacts}/${id}`, { observe: 'response'})
             .map((res: HttpResponse<Follow[]>) => this.convertArrayResponse(res));
     }
-
     private convertResponse(res: EntityResponseType): EntityResponseType {
         const body: Contact = this.convertItemFromServer(res.body);
         return res.clone({body});

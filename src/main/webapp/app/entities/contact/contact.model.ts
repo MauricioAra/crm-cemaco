@@ -13,6 +13,9 @@ export class Contact implements BaseEntity {
         public updateDate?: string,
         public status?: string,
         public phone?: string,
+        public origin?: string,
+        public interest?: string,
+        public referer?: number,
         public follows?: BaseEntity[],
     ) {
     }

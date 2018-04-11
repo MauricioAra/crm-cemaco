@@ -52,6 +52,15 @@ public class Contact implements Serializable {
     @Column(name = "phone")
     private String phone;
 
+    @Column(name = "origin")
+    private String origin;
+
+    @Column(name = "interest")
+    private String interest;
+
+    @Column(name = "referer")
+    private Long referer;
+
     @OneToMany(mappedBy = "contact")
     @JsonIgnore
     private Set<Follow> follows = new HashSet<>();
@@ -195,6 +204,45 @@ public class Contact implements Serializable {
         this.phone = phone;
     }
 
+    public String getOrigin() {
+        return origin;
+    }
+
+    public Contact origin(String origin) {
+        this.origin = origin;
+        return this;
+    }
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
+
+    public String getInterest() {
+        return interest;
+    }
+
+    public Contact interest(String interest) {
+        this.interest = interest;
+        return this;
+    }
+
+    public void setInterest(String interest) {
+        this.interest = interest;
+    }
+
+    public Long getReferer() {
+        return referer;
+    }
+
+    public Contact referer(Long referer) {
+        this.referer = referer;
+        return this;
+    }
+
+    public void setReferer(Long referer) {
+        this.referer = referer;
+    }
+
     public Set<Follow> getFollows() {
         return follows;
     }
@@ -255,6 +303,9 @@ public class Contact implements Serializable {
             ", updateDate='" + getUpdateDate() + "'" +
             ", status='" + getStatus() + "'" +
             ", phone='" + getPhone() + "'" +
+            ", origin='" + getOrigin() + "'" +
+            ", interest='" + getInterest() + "'" +
+            ", referer=" + getReferer() +
             "}";
     }
 }

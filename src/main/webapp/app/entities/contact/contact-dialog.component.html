@@ -1,75 +1,90 @@
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
 
     <div class="modal-header">
-        <h4 class="modal-title" id="myContactLabel">Editar contacto</h4>
+        <h4 class="modal-title" id="myContactLabel">Create or edit a Contact</h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 (click)="clear()">&times;</button>
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
         <div class="form-group" [hidden]="!contact.id">
-            <label for="id">Número de contacto</label>
+            <label for="id">ID</label>
             <input type="text" class="form-control" id="id" name="id"
                    [(ngModel)]="contact.id" readonly />
         </div>
         <div class="form-group">
-            <label class="form-control-label" for="field_name">Nombre</label>
+            <label class="form-control-label" for="field_name">Name</label>
             <input type="text" class="form-control" name="name" id="field_name"
                 [(ngModel)]="contact.name" />
         </div>
         <div class="form-group">
-            <label class="form-control-label" for="field_firstName">Primer apellido</label>
+            <label class="form-control-label" for="field_firstName">First Name</label>
             <input type="text" class="form-control" name="firstName" id="field_firstName"
                 [(ngModel)]="contact.firstName" />
         </div>
         <div class="form-group">
-            <label class="form-control-label" for="field_lastName">Segundo apellido</label>
+            <label class="form-control-label" for="field_lastName">Last Name</label>
             <input type="text" class="form-control" name="lastName" id="field_lastName"
                 [(ngModel)]="contact.lastName" />
         </div>
         <div class="form-group">
-            <label class="form-control-label" for="field_email">Correo</label>
+            <label class="form-control-label" for="field_email">Email</label>
             <input type="text" class="form-control" name="email" id="field_email"
                 [(ngModel)]="contact.email" />
         </div>
         <div class="form-group">
-            <label class="form-control-label" for="field_socialId">Cédula</label>
+            <label class="form-control-label" for="field_socialId">Social Id</label>
             <input type="text" class="form-control" name="socialId" id="field_socialId"
                 [(ngModel)]="contact.socialId" />
         </div>
-        <!--<div class="form-group">-->
-            <!--<label class="form-control-label" for="field_sex">Género</label>-->
-            <!--<input type="text" class="form-control" name="sex" id="field_sex"-->
-                <!--[(ngModel)]="contact.sex" />-->
-        <!--</div>-->
         <div class="form-group">
-            <label class="form-control-label" for="field_registryDate">Fecha de registro</label>
+            <label class="form-control-label" for="field_sex">Sex</label>
+            <input type="text" class="form-control" name="sex" id="field_sex"
+                [(ngModel)]="contact.sex" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_registryDate">Registry Date</label>
             <input type="text" class="form-control" name="registryDate" id="field_registryDate"
                 [(ngModel)]="contact.registryDate" />
         </div>
-        <!--<div class="form-group">-->
-            <!--<label class="form-control-label" for="field_updateDate">Update Date</label>-->
-            <!--<input type="text" class="form-control" name="updateDate" id="field_updateDate"-->
-                <!--[(ngModel)]="contact.updateDate" />-->
-        <!--</div>-->
-        <!--<div class="form-group">-->
-            <!--<label class="form-control-label" for="field_status">Status</label>-->
-            <!--<input type="text" class="form-control" name="status" id="field_status"-->
-                <!--[(ngModel)]="contact.status" />-->
-        <!--</div>-->
         <div class="form-group">
-            <label class="form-control-label" for="field_phone">Celular</label>
+            <label class="form-control-label" for="field_updateDate">Update Date</label>
+            <input type="text" class="form-control" name="updateDate" id="field_updateDate"
+                [(ngModel)]="contact.updateDate" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_status">Status</label>
+            <input type="text" class="form-control" name="status" id="field_status"
+                [(ngModel)]="contact.status" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_phone">Phone</label>
             <input type="text" class="form-control" name="phone" id="field_phone"
                 [(ngModel)]="contact.phone" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_origin">Origin</label>
+            <input type="text" class="form-control" name="origin" id="field_origin"
+                [(ngModel)]="contact.origin" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_interest">Interest</label>
+            <input type="text" class="form-control" name="interest" id="field_interest"
+                [(ngModel)]="contact.interest" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_referer">Referer</label>
+            <input type="number" class="form-control" name="referer" id="field_referer"
+                [(ngModel)]="contact.referer" />
         </div>
 
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
-            <span class="fa fa-ban"></span>&nbsp;<span>Cancelar</span>
+            <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
         </button>
-        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-success">
-            <span class="fa fa-save"></span>&nbsp;<span>Guardar</span>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span>Save</span>
         </button>
     </div>
 </form>

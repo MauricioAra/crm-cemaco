@@ -62,6 +62,18 @@
                 <constraints nullable="true" />
             </column>
 
+            <column name="origin" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="interest" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="referer" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         
