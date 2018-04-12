@@ -12,7 +12,7 @@ export const followRoute: Routes = [
         component: FollowComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'Follows'
+            pageTitle: 'Seguimientos'
         },
         canActivate: [UserRouteAccessService]
     }, {
@@ -20,7 +20,7 @@ export const followRoute: Routes = [
         component: FollowDetailComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'Follows'
+            pageTitle: 'Seguimientos'
         },
         canActivate: [UserRouteAccessService]
     }
@@ -32,7 +32,7 @@ export const followPopupRoute: Routes = [
         component: FollowPopupComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'Follows'
+            pageTitle: 'Seguimientos'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'
@@ -42,7 +42,7 @@ export const followPopupRoute: Routes = [
         component: FollowPopupComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'Follows'
+            pageTitle: 'Seguimientos'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'
@@ -52,7 +52,7 @@ export const followPopupRoute: Routes = [
         component: FollowDeletePopupComponent,
         data: {
             authorities: ['ROLE_USER'],
-            pageTitle: 'Follows'
+            pageTitle: 'Seguimientos'
         },
         canActivate: [UserRouteAccessService],
         outlet: 'popup'

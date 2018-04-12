@@ -1,136 +1,134 @@
-<div *ngIf="follow">
-    <div class="row">
-        <div class="col-md-12">
-            <button type="submit"
-                    (click)="previousState()"
-                    class="btn btn-info">
-                <span class="fa fa-arrow-left"></span>&nbsp;<span> Número de seguimiento:</span> {{follow.id}}</span>
-            </button>
-            <hr>
-        </div>
-    </div>
-    <jhi-alert-error></jhi-alert-error>
+<mat-card class="example-card" style="margin-top: 20px">
+    <mat-card-header>
+        <mat-card-title>
+            <button mat-raised-button color="primary" (click)="previousState()"><span class="fa fa-arrow-left"></span>&nbsp; Número de seguimiento: {{follow.id}}</button>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="row">
+            <div class="col-md-6">
+                <dt><span>Origen de contacto</span></dt>
+                <dd>
+                    <span *ngIf="follow.originContact == '1'">Daily Planet</span>
+                    <span *ngIf="follow.originContact == '2'">Once Noticias</span>
+                    <span *ngIf="follow.originContact == '3'">Otro</span>
+                </dd>
 
-    <div class="row">
-        <div class="col-md-6">
-            <dt><span>Origen de contacto</span></dt>
-            <dd>
-                <span *ngIf="follow.originContact == '1'">Daily Planet</span>
-                <span *ngIf="follow.originContact == '2'">Once Noticias</span>
-                <span *ngIf="follow.originContact == '3'">Otro</span>
-            </dd>
+                <hr>
 
-            <hr>
+                <dt><span>Fecha de siguiente contacto</span></dt>
+                <dd>
+                    <span>{{follow.nextContactDate}}</span>
+                </dd>
 
-            <dt><span>Fecha de siguiente contacto</span></dt>
-            <dd>
-                <span>{{follow.nextContactDate}}</span>
-            </dd>
+                <hr>
 
-            <hr>
+                <dt><span>Fecha de registro</span></dt>
+                <dd>
+                    <span>{{follow.registryDate}}</span>
+                </dd>
 
-            <dt><span>Fecha de registro</span></dt>
-            <dd>
-                <span>{{follow.registryDate}}</span>
-            </dd>
+                <hr>
 
-            <hr>
+                <dt><span>Estado</span></dt>
+                <dd>
+                    <span class="btn btn-warning" *ngIf="follow.status == 'P'">Pendiente</span>
+                    <span class="btn btn-success" *ngIf="follow.status == 'C'">Completado</span>
+                    <span class="btn btn-danger" *ngIf="follow.status == 'NC'">No completado</span>
+                </dd>
 
-            <dt><span>Estado</span></dt>
-            <dd>
-                <span class="btn btn-warning" *ngIf="follow.status == 'P'">Pendiente</span>
-                <span class="btn btn-success" *ngIf="follow.status == 'C'">Completado</span>
-                <span class="btn btn-danger" *ngIf="follow.status == 'NC'">No completado</span>
-            </dd>
+                <hr>
 
-            <hr>
+                <dt><span>¿Interesado en comprar?</span></dt>
+                <dd>
+                    <span>{{follow.interestedBuy}}</span>
+                </dd>
 
-            <dt><span>¿Interesado en comprar?</span></dt>
-            <dd>
-                <span>{{follow.interestedBuy}}</span>
-            </dd>
+                <hr>
 
-            <hr>
-
-            <dt><span>Resultado</span></dt>
-            <dd>
-                <span>{{follow.result}}</span>
-            </dd>
-        </div>
-        <div class="col-md-6">
-            <dt><span>Mediante</span></dt>
-            <dd>
-                <span>{{follow.subOriginContact}}</span>
-            </dd>
-
-            <hr>
-
-            <dt><span>Razón del contacto</span></dt>
-            <dd>
-                <span>{{follow.nextContactReason}}</span>
-            </dd>
-
-            <hr>
-
-            <dt><span>Contacto</span></dt>
-            <dd>
-                <div *ngIf="follow.contactId">
-                    <a [routerLink]="['/contact', follow.contactId]">{{follow.contactName}}</a>
-                </div>
-            </dd>
-
-            <hr>
-
-            <dt><span>¿Ha comprado en cemaco?</span></dt>
-            <dd>
-                <span>{{follow.buyInCemaco}}</span>
-            </dd>
-
-            <hr>
-
-            <dt><span>Artículo</span></dt>
-            <dd>
-                <span>{{follow.article}}</span>
-            </dd>
-        </div>
-    </div>
-</div>
-
-<div class="row" *ngIf="follow.status == 'P'">
-    <div class="col-md-12">
-        <hr>
-        <div class="alert alert-warning" role="alert">
-            <dt><strong>El resultado se encuentra pendiente, agregar un resultado al seguimiento</strong></dt>
-            <div>
-                <div class="form-group">
-                    <label class="form-control-label" for="field_article">Resultado</label>
-                    <input type="text" class="form-control" name="article" id="field_article"
-                           [(ngModel)]="result" />
-                </div>
+                <dt><span>Resultado</span></dt>
+                <dd>
+                    <span>{{follow.result}}</span>
+                </dd>
             </div>
-            <div class="form-group">
-                <label class="form-control-label">Estado del resultado</label>
-                <div class="form-group">
-                    <div ngbRadioGroup name="subOriginContact" [(ngModel)]="statusTemp">
-                        <label ngbButtonLabel>
-                            <input ngbButton type="radio" [value]="'C'"> Completado
-                        </label>
-                        <label ngbButtonLabel>
-                            <input ngbButton type="radio" [value]="'NC'"> No completado
-                        </label>
+            <div class="col-md-6">
+                <dt><span>Mediante</span></dt>
+                <dd>
+                    <span *ngIf="follow.subOriginContact == null">No aplica</span>
+                    <span *ngIf="follow.subOriginContact != null">{{follow.subOriginContact}}</span>
+                </dd>
+
+                <hr>
+
+                <dt><span>Razón del contacto</span></dt>
+                <dd>
+                    <span>{{follow.nextContactReason}}</span>
+                </dd>
+
+                <hr>
+
+                <dt><span>Contacto</span></dt>
+                <dd>
+                    <div *ngIf="follow.contactId">
+                        <a [routerLink]="['/contact', follow.contactId]">{{follow.contactName}}</a>
+                    </div>
+                </dd>
+
+                <hr>
+
+                <dt><span>¿Ha comprado en cemaco?</span></dt>
+                <dd>
+                    <span>{{follow.buyInCemaco}}</span>
+                </dd>
+
+                <hr>
+
+                <dt><span>Artículo</span></dt>
+                <dd>
+                    <span>{{follow.article}}</span>
+                </dd>
+            </div>
+        </div>
+        <div class="row" *ngIf="follow.status == 'P'">
+            <div class="col-md-12">
+                <hr>
+                <div class="alert alert-warning" role="alert">
+                    <dt><strong>El resultado se encuentra pendiente, agregar un resultado al seguimiento</strong></dt>
+                    <div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_article">Resultado</label>
+                            <input type="text" class="form-control" name="article" id="field_article"
+                                   [(ngModel)]="result" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label">Estado del resultado</label>
+                        <div class="form-group">
+                            <div ngbRadioGroup name="subOriginContact" [(ngModel)]="statusTemp">
+                                <label ngbButtonLabel>
+                                    <input ngbButton type="radio" [value]="'C'"> Completado
+                                </label>
+                                <label ngbButtonLabel>
+                                    <input ngbButton type="radio" [value]="'NC'"> No completado
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="submit"
+                                (click)="resgisterResult()"
+                                class="btn btn-warning">
+                            <span class="fa fa-save"></span>&nbsp;<span> Guardar</span>
+                        </button>
                     </div>
                 </div>
             </div>
-            <div>
-                <button type="submit"
-                        (click)="resgisterResult()"
-                        class="btn btn-warning">
-                    <span class="fa fa-save"></span>&nbsp;<span> Guardar</span>
-                </button>
-            </div>
         </div>
-    </div>
-</div>
+    </mat-card-content>
+    <mat-card-actions>
+    </mat-card-actions>
+</mat-card>
+
 
 
 

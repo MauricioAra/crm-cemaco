@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
@@ -7,6 +7,8 @@ import { Account, LoginModalService, Principal } from '../shared';
 import { Follow } from '../entities/follow/follow.model';
 import { FollowService } from '../entities/follow/follow.service';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import {MatPaginator, MatTableDataSource} from '@angular/material';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
     selector: 'jhi-home',
@@ -24,6 +26,10 @@ export class HomeComponent implements OnInit {
     public currentDate:any;
     public nextContact:any;
     public registryDate:any;
+
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+    dataSource:any;
+    displayedColumns = ['no', 'origin', 'mediante', 'next','registry','status','reason','contact','actions'];
 
     constructor(
         private principal: Principal,
@@ -50,7 +56,8 @@ export class HomeComponent implements OnInit {
         this.followService.findBydate(date).subscribe(
             (res: HttpResponse<Follow[]>) => {
                 this.follows = res.body;
-                console.log(this.follows);
+                this.dataSource = new MatTableDataSource<Follow>(this.follows);
+                this.dataSource.paginator = this.paginator;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -81,13 +88,17 @@ export class HomeComponent implements OnInit {
         this.modalRef = this.loginModalService.open();
     }
 
-    findByNextContact(date){
-        let tempDate = date.day.toString()+'-'+date.month.toString()+'-'+date.year.toString();
+    findByNextContact(event: MatDatepickerInputEvent<Date>){
+        let date : Date = new Date(`${event.value}`);
+        let month:any = date.getMonth()+1;
+        let tempDate = date.getDate().toString()+'-'+month.toString()+'-'+date.getFullYear().toString();
         this.loadFollows(tempDate);
     }
 
-    findByRegistryContact(date){
-        let tempDate = date.day.toString()+'-'+date.month.toString()+'-'+date.year.toString();
+    findByRegistryContact(event: MatDatepickerInputEvent<Date>){
+        let date : Date = new Date(`${event.value}`);
+        let month:any = date.getMonth()+1;
+        let tempDate = date.getDate().toString()+'-'+month.toString()+'-'+date.getFullYear().toString();
         this.loadFollows(tempDate);
     }
 
@@ -96,5 +107,11 @@ export class HomeComponent implements OnInit {
         let temp2 = this.now.getDate();
         this.currentDate = temp2+'-'+temp+'-'+this.now.getFullYear();
         this.loadFollows(this.currentDate);
+    }
+
+    applyFilter(filterValue: string) {
+        filterValue = filterValue.trim();
+        filterValue = filterValue.toLowerCase();
+        this.dataSource.filter = filterValue;
     }
 }

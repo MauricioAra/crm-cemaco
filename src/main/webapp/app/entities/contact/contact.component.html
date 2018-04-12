@@ -1,82 +1,98 @@
 <div>
-    <h2>
-        <span>Contacts</span>
-        <button class="btn btn-primary float-right jh-create-entity create-contact" [routerLink]="['/', { outlets: { popup: ['contact-new'] } }]">
-            <span class="fa fa-plus"></span>
-            <span >
-            Create new Contact
-            </span>
-        </button>
-    </h2>
-    <jhi-alert></jhi-alert>
-    <div class="row">
-    </div>
-    <br/>
-    <div class="table-responsive" *ngIf="contacts">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-            <th><span>ID</span></th>
-            <th><span>Name</span></th>
-            <th><span>First Name</span></th>
-            <th><span>Last Name</span></th>
-            <th><span>Email</span></th>
-            <th><span>Social Id</span></th>
-            <th><span>Sex</span></th>
-            <th><span>Registry Date</span></th>
-            <th><span>Update Date</span></th>
-            <th><span>Status</span></th>
-            <th><span>Phone</span></th>
-            <th><span>Origin</span></th>
-            <th><span>Interest</span></th>
-            <th><span>Referer</span></th>
-            <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let contact of contacts ;trackBy: trackId">
-                <td><a [routerLink]="['../contact', contact.id ]">{{contact.id}}</a></td>
-                <td>{{contact.name}}</td>
-                <td>{{contact.firstName}}</td>
-                <td>{{contact.lastName}}</td>
-                <td>{{contact.email}}</td>
-                <td>{{contact.socialId}}</td>
-                <td>{{contact.sex}}</td>
-                <td>{{contact.registryDate}}</td>
-                <td>{{contact.updateDate}}</td>
-                <td>{{contact.status}}</td>
-                <td>{{contact.phone}}</td>
-                <td>{{contact.origin}}</td>
-                <td>{{contact.interest}}</td>
-                <td>{{contact.referer}}</td>
-                <td class="text-right">
-                    <div class="btn-group flex-btn-group-container">
-                        <button type="submit"
-                                [routerLink]="['../contact', contact.id ]"
-                                class="btn btn-info btn-sm">
-                            <span class="fa fa-eye"></span>
-                            <span class="d-none d-md-inline">View</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'contact/'+ contact.id + '/edit'} }]"
-                                replaceUrl="true"
-                                queryParamsHandling="merge"
-                                class="btn btn-primary btn-sm">
-                            <span class="fa fa-pencil"></span>
-                            <span class="d-none d-md-inline">Edit</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'contact/'+ contact.id + '/delete'} }]"
-                                replaceUrl="true"
-                                queryParamsHandling="merge"
-                                class="btn btn-danger btn-sm">
-                            <span class="fa fa-remove"></span>
-                            <span class="d-none d-md-inline">Delete</span>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+    <div class="example-container mat-elevation-z8" style="margin-top: 20px">
+        <div class="example-header" style="background-color: white">
+            <div style="padding: 10px">
+                <h4>
+                    <span>Contactos</span>
+                </h4>
+            </div>
+            <mat-grid-list cols="4" rowHeight="100px">
+                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                    <mat-form-field style="width: 100%;padding: 10px">
+                        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Buscar...">
+                    </mat-form-field>
+                </mat-grid-tile>
+
+                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                    <mat-form-field style="width: 100%;padding: 10px">
+                        <mat-select placeholder="Intereses" [(ngModel)]="selectedInterest" (ngModelChange)="filterInterest(selectedInterest)">
+                            <mat-option *ngFor="let interest of interests" [value]="interest">
+                                {{ interest }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </mat-grid-tile>
+
+                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                    <mat-form-field style="width: 100%;padding: 10px">
+                        <mat-select placeholder="Origen" [(ngModel)]="selectedOrigin" (ngModelChange)="filterOrigin(selectedOrigin)">
+                            <mat-option *ngFor="let origin of origins" [value]="origin">
+                                {{ origin }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </mat-grid-tile>
+
+                <mat-grid-tile [colspan]="1" [rowspan]="1">
+                    <button mat-button color="primary" (click)="clean()">Limpiar búsqueda</button>
+                </mat-grid-tile>
+
+            </mat-grid-list>
+        </div>
+
+
+        <mat-table #table [dataSource]="dataSource">
+
+            <ng-container matColumnDef="position">
+                <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+                <mat-cell *matCellDef="let contact"> {{contact.id}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+                <mat-cell *matCellDef="let contact"> {{contact.name}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="firstName">
+                <mat-header-cell *matHeaderCellDef> Primer apellido </mat-header-cell>
+                <mat-cell *matCellDef="let contact"> {{contact.firstName}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+                <mat-header-cell *matHeaderCellDef> Correo </mat-header-cell>
+                <mat-cell *matCellDef="let contact"> {{contact.email}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="phone">
+                <mat-header-cell *matHeaderCellDef> Teléono </mat-header-cell>
+                <mat-cell *matCellDef="let contact"> {{contact.phone}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="origin">
+                <mat-header-cell *matHeaderCellDef> Origen </mat-header-cell>
+                <mat-cell *matCellDef="let contact"> {{contact.origin}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="interest">
+                <mat-header-cell *matHeaderCellDef> Interes </mat-header-cell>
+                <mat-cell *matCellDef="let contact"> {{contact.interest}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef> Acción </mat-header-cell>
+                <mat-cell *matCellDef="let contact">
+                    <button mat-button mat-raised-button color="primary" [routerLink]="['../contact', contact.id ]">Detalles</button>
+                </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <mat-paginator #paginator
+                       [pageSize]="10"
+                       [pageSizeOptions]="[5, 10, 20,50,100,200]"
+                       [showFirstLastButtons]="true">
+        </mat-paginator>
     </div>
 </div>

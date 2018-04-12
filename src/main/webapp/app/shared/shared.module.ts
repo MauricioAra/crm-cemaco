@@ -1,5 +1,16 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule, MatNativeDateModule } from '@angular/material';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatCardModule } from '@angular/material/card';
 
 import {
     CrmcemacoSharedLibsModule,
@@ -20,7 +31,20 @@ import {
 @NgModule({
     imports: [
         CrmcemacoSharedLibsModule,
-        CrmcemacoSharedCommonModule
+        CrmcemacoSharedCommonModule,
+        BrowserAnimationsModule,
+        MatPaginatorModule,
+        MatTableModule,
+        MatFormFieldModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatGridListModule,
+        MatSelectModule,
+        MatButtonModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatCardModule
     ],
     declarations: [
         JhiLoginModalComponent,
@@ -43,7 +67,20 @@ import {
         CrmcemacoSharedCommonModule,
         JhiLoginModalComponent,
         HasAnyAuthorityDirective,
-        DatePipe
+        DatePipe,
+        BrowserAnimationsModule,
+        MatPaginatorModule,
+        MatTableModule,
+        MatFormFieldModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatGridListModule,
+        MatSelectModule,
+        MatButtonModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatCardModule
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 
