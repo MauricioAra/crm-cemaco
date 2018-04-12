@@ -1,5 +1,5 @@
-<div>
-    <div class="example-container mat-elevation-z8" style="margin-top: 20px">
+<div [ngSwitch]="isAuthenticated()">
+    <div class="example-container mat-elevation-z8" style="margin-top: 20px" *ngSwitchCase="true">
         <div class="example-header" style="background-color: white">
             <div style="padding: 10px">
                 <h4>
@@ -108,6 +108,11 @@
                        [pageSizeOptions]="[5, 10, 20,50,100,200]"
                        [showFirstLastButtons]="true">
         </mat-paginator>
+    </div>
+    <div  *ngSwitchCase="false" class="back-ground">
+        <button mat-raised-button color="primary" class="btn-out-white" (click)="login()" id="login">
+            INICIAR SESIÓN
+        </button>
     </div>
 </div>
 

@@ -1,175 +1,341 @@
-<div *ngIf="contact">
-    <div class="row">
-        <div class="col-md-12">
-            <button type="submit"
-                    (click)="previousState()"
-                    class="btn btn-info">
-                <span class="fa fa-arrow-left"></span>&nbsp;<span> Número del contacto:</span> {{contact.id}}</span>
-            </button>
-            <button type="button"
-                    [routerLink]="['/', { outlets: { popup: 'contact/'+ contact.id + '/edit'} }]"
-                    replaceUrl="true"
-                    queryParamsHandling="merge"
-                    class="btn btn-success">
-                <span class="fa fa-pencil"></span>&nbsp;<span> Editar</span>
-            </button>
-            <button type="button"
-                    [routerLink]="['/new-follow',contact.id]"
-                    replaceUrl="true"
-                    queryParamsHandling="merge"
-                    class="btn btn-success">
-                <span class="fa fa-plus"></span>&nbsp;<span> Nuevo seguimiento</span>
-            </button>
-            <hr>
+<mat-card class="example-card" style="margin-top: 20px">
+    <mat-card-header>
+        <mat-card-title>
+            <button mat-raised-button color="primary" (click)="previousState()"><span class="fa fa-arrow-left"></span>&nbsp; Número del contacto:</span> {{contact.id}}</button>
+            <button mat-raised-button color="primary" [routerLink]="['/', { outlets: { popup: 'contact/'+ contact.id + '/edit'} }]"><span class="fa fa-pencil">&nbsp;</span>Editar</button>
+            <button mat-raised-button color="primary" [routerLink]="['/new-follow',contact.id]"><span class="fa fa-plus"></span>&nbsp;</span>Nuevo seguimiento</button>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="row">
+            <div class="col-md-6">
+                <dt><span>Nombre completo</span></dt>
+                <dd>
+                    <span>{{contact.name}} {{contact.firstName}} {{contact.lastName}}</span>
+                </dd>
+
+                <hr>
+
+                <dt><span>Cédula</span></dt>
+                <dd>
+                    <span>{{contact.socialId}}</span>
+                </dd>
+
+                <hr>
+
+                <dt><span>Fecha de registro</span></dt>
+                <dd>
+                    <span>{{contact.registryDate}}</span>
+                </dd>
+
+                <hr>
+
+                <dt><span>Celular</span></dt>
+                <dd>
+                    <span>{{contact.phone}}</span>
+                </dd>
+
+                <hr>
+
+                <dt><span>Origen</span></dt>
+                <dd>
+                    <span>{{contact.origin}}</span>
+                </dd>
+
+            </div>
+            <div class="col-md-6">
+                <dt><span>Correo</span></dt>
+                <dd>
+                    <span>{{contact.email}}</span>
+                </dd>
+
+                <hr>
+
+                <dt><span>Género</span></dt>
+                <dd>
+                    <span *ngIf="contact.sex == 'h'">Hombre</span>
+                    <span *ngIf="contact.sex == 'm'">Mujer</span>
+                    <span *ngIf="contact.sex == 'o'">Otro</span>
+                </dd>
+
+                <hr>
+
+                <dt><span>Última fecha de modificación</span></dt>
+                <dd>
+                    <span>{{contact.updateDate}}</span>
+                </dd>
+
+                <hr>
+
+                <dt><span>Estado</span></dt>
+                <dd>
+                    <span *ngIf="contact.status == 'PL'">Potencial Lead</span>
+                    <span *ngIf="contact.status == 'L'">Lead</span>
+                </dd>
+
+                <hr>
+
+                <dt><span>Interes</span></dt>
+                <dd>
+                    <span>{{contact.interest}}</span>
+                </dd>
+            </div>
         </div>
-    </div>
-    <jhi-alert-error></jhi-alert-error>
-    <div class="row">
-        <div class="col-md-6">
-            <dt><span>Nombre completo</span></dt>
-            <dd>
-                <span>{{contact.name}} {{contact.firstName}} {{contact.lastName}}</span>
-            </dd>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Seguimientos de <span>{{contact.name}} {{contact.firstName}} {{contact.lastName}}</span></h4>
+                <hr>
+                <mat-table #table [dataSource]="dataSource">
 
-            <hr>
+                    <ng-container matColumnDef="no">
+                        <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+                        <mat-cell *matCellDef="let follow"> {{follow.id}} </mat-cell>
+                    </ng-container>
 
-            <dt><span>Cédula</span></dt>
-            <dd>
-                <span>{{contact.socialId}}</span>
-            </dd>
-
-            <hr>
-
-            <dt><span>Fecha de registro</span></dt>
-            <dd>
-                <span>{{contact.registryDate}}</span>
-            </dd>
-
-            <hr>
-
-            <dt><span>Celular</span></dt>
-            <dd>
-                <span>{{contact.phone}}</span>
-            </dd>
-
-            <hr>
-
-            <dt><span>Origen</span></dt>
-            <dd>
-                <span>{{contact.origin}}</span>
-            </dd>
-
-        </div>
-        <div class="col-md-6">
-            <dt><span>Correo</span></dt>
-            <dd>
-                <span>{{contact.email}}</span>
-            </dd>
-
-            <hr>
-
-            <dt><span>Género</span></dt>
-            <dd>
-                <span *ngIf="contact.sex == 'h'">Hombre</span>
-                <span *ngIf="contact.sex == 'm'">Mujer</span>
-                <span *ngIf="contact.sex == 'o'">Otro</span>
-            </dd>
-
-            <hr>
-
-            <dt><span>Última fecha de modificación</span></dt>
-            <dd>
-                <span>{{contact.updateDate}}</span>
-            </dd>
-
-            <hr>
-
-            <dt><span>Estado</span></dt>
-            <dd>
-                <span *ngIf="contact.status == 'PL'">Potencial Lead</span>
-                <span *ngIf="contact.status == 'L'">Lead</span>
-            </dd>
-
-            <hr>
-
-            <dt><span>Interes</span></dt>
-            <dd>
-                <span>{{contact.interest}}</span>
-            </dd>
-        </div>
-    </div>
-    <hr>
-    <div class="row">
-        <div class="col-md-12">
-            <h4>Seguimientos de <span>{{contact.name}} {{contact.firstName}} {{contact.lastName}}</span></h4>
-            <div class="table-responsive" *ngIf="follows">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th><span>Serie</span></th>
-                        <th><span>Origen del contacto</span></th>
-                        <th><span>Mediante</span></th>
-                        <th><span>Próximo contacto</span></th>
-                        <th><span>Fecha de registro</span></th>
-                        <th><span>Estado</span></th>
-                        <th><span>Razón de contacto</span></th>
-                        <th><span>Resultado</span></th>
-                        <th><span>Contacto</span></th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr *ngFor="let follow of follows ;trackBy: trackId">
-                        <td><a [routerLink]="['../follow', follow.id ]">{{follow.id}}</a></td>
-                        <td>
+                    <ng-container matColumnDef="origin">
+                        <mat-header-cell *matHeaderCellDef> Origen del contacto </mat-header-cell>
+                        <mat-cell *matCellDef="let follow">
                             <span *ngIf="follow.originContact == '1'">Daily planet</span>
                             <span *ngIf="follow.originContact == '2'">Once noticias</span>
                             <span *ngIf="follow.originContact == '3'">Otro</span>
-                        </td>
-                        <td>{{follow.subOriginContact}}</td>
-                        <td>{{follow.nextContactDate}}</td>
-                        <td>{{follow.registryDate}}</td>
-                        <td>
-                            <span class="btn btn-warning" *ngIf="follow.status == 'P'">Pendiente</span>
-                            <span class="btn btn-success" *ngIf="follow.status == 'C'">Completado</span>
-                            <span class="btn btn-danger" *ngIf="follow.status == 'NC'">No completado</span>
-                        <td>{{follow.nextContactReason}}</td>
-                        <td>{{follow.result}}</td>
-                        <td>
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="mediante">
+                        <mat-header-cell *matHeaderCellDef> Mediante </mat-header-cell>
+                        <mat-cell *matCellDef="let follow"> {{follow.subOriginContact}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="next">
+                        <mat-header-cell *matHeaderCellDef> Próximo contacto </mat-header-cell>
+                        <mat-cell *matCellDef="let follow"> {{follow.nextContactDate}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="registry">
+                        <mat-header-cell *matHeaderCellDef> Fecha de registro </mat-header-cell>
+                        <mat-cell *matCellDef="let follow"> {{follow.registryDate}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="status">
+                        <mat-header-cell *matHeaderCellDef> Estado </mat-header-cell>
+                        <mat-cell *matCellDef="let follow">
+                            <span class="btn btn-warning" *ngIf="follow.status == 'P'" style="font-size: 12px">Pendiente</span>
+                            <span class="btn btn-success" *ngIf="follow.status == 'C'" style="font-size: 12px">Completado</span>
+                            <span class="btn btn-danger" *ngIf="follow.status == 'NC'" style="font-size: 12px">No completado</span>
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="reason">
+                        <mat-header-cell *matHeaderCellDef> Razón de contacto </mat-header-cell>
+                        <mat-cell *matCellDef="let follow"> {{follow.nextContactReason}} </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="contact">
+                        <mat-header-cell *matHeaderCellDef> Contacto </mat-header-cell>
+                        <mat-cell *matCellDef="let follow">
                             <div *ngIf="follow.contactId">
                                 <a [routerLink]="['../contact', follow.contactId  ]" >{{follow.contactName}}</a>
                             </div>
-                        </td>
-                        <td class="text-right">
-                            <div class="btn-group flex-btn-group-container">
-                                <button type="submit"
-                                        [routerLink]="['../follow', follow.id ]"
-                                        class="btn btn-info btn-sm">
-                                    <span class="fa fa-eye"></span>
-                                    <span class="d-none d-md-inline">Detalles</span>
-                                </button>
-                                <!--<button type="submit"-->
-                                <!--[routerLink]="['/', { outlets: { popup: 'follow/'+ follow.id + '/edit'} }]"-->
-                                <!--replaceUrl="true"-->
-                                <!--queryParamsHandling="merge"-->
-                                <!--class="btn btn-primary btn-sm">-->
-                                <!--<span class="fa fa-pencil"></span>-->
-                                <!--<span class="d-none d-md-inline">Edit</span>-->
-                                <!--</button>-->
-                                <!--<button type="submit"-->
-                                <!--[routerLink]="['/', { outlets: { popup: 'follow/'+ follow.id + '/delete'} }]"-->
-                                <!--replaceUrl="true"-->
-                                <!--queryParamsHandling="merge"-->
-                                <!--class="btn btn-danger btn-sm">-->
-                                <!--<span class="fa fa-remove"></span>-->
-                                <!--<span class="d-none d-md-inline">Delete</span>-->
-                                <!--</button>-->
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                        </mat-cell>
+                    </ng-container>
+
+                    <ng-container matColumnDef="actions">
+                        <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+                        <mat-cell *matCellDef="let follow">
+                            <button mat-raised-button color="primary"  [routerLink]="['../follow', follow.id ]">Detalles</button>
+                        </mat-cell>
+                    </ng-container>
+
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+
+                <mat-paginator #paginator
+                               [pageSize]="10"
+                               [pageSizeOptions]="[5, 10, 20,50,100,200]"
+                               [showFirstLastButtons]="true">
+                </mat-paginator>
             </div>
         </div>
-    </div>
-</div>
+    </mat-card-content>
+    <mat-card-actions>
+    </mat-card-actions>
+</mat-card>
+
+<!--<div *ngIf="contact">-->
+    <!--<div class="row">-->
+        <!--<div class="col-md-12">-->
+            <!--<button type="submit"-->
+                    <!--(click)="previousState()"-->
+                    <!--class="btn btn-info">-->
+                <!--<span class="fa fa-arrow-left"></span>&nbsp;<span> Número del contacto:</span> {{contact.id}}</span>-->
+            <!--</button>-->
+            <!--<button type="button"-->
+                    <!--[routerLink]="['/', { outlets: { popup: 'contact/'+ contact.id + '/edit'} }]"-->
+                    <!--replaceUrl="true"-->
+                    <!--queryParamsHandling="merge"-->
+                    <!--class="btn btn-success">-->
+                <!--<span class="fa fa-pencil"></span>&nbsp;<span> Editar</span>-->
+            <!--</button>-->
+            <!--<button type="button"-->
+                    <!--[routerLink]="['/new-follow',contact.id]"-->
+                    <!--replaceUrl="true"-->
+                    <!--queryParamsHandling="merge"-->
+                    <!--class="btn btn-success">-->
+                <!--<span class="fa fa-plus"></span>&nbsp;<span> Nuevo seguimiento</span>-->
+            <!--</button>-->
+            <!--<hr>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<jhi-alert-error></jhi-alert-error>-->
+    <!--<div class="row">-->
+        <!--<div class="col-md-6">-->
+            <!--<dt><span>Nombre completo</span></dt>-->
+            <!--<dd>-->
+                <!--<span>{{contact.name}} {{contact.firstName}} {{contact.lastName}}</span>-->
+            <!--</dd>-->
+
+            <!--<hr>-->
+
+            <!--<dt><span>Cédula</span></dt>-->
+            <!--<dd>-->
+                <!--<span>{{contact.socialId}}</span>-->
+            <!--</dd>-->
+
+            <!--<hr>-->
+
+            <!--<dt><span>Fecha de registro</span></dt>-->
+            <!--<dd>-->
+                <!--<span>{{contact.registryDate}}</span>-->
+            <!--</dd>-->
+
+            <!--<hr>-->
+
+            <!--<dt><span>Celular</span></dt>-->
+            <!--<dd>-->
+                <!--<span>{{contact.phone}}</span>-->
+            <!--</dd>-->
+
+            <!--<hr>-->
+
+            <!--<dt><span>Origen</span></dt>-->
+            <!--<dd>-->
+                <!--<span>{{contact.origin}}</span>-->
+            <!--</dd>-->
+
+        <!--</div>-->
+        <!--<div class="col-md-6">-->
+            <!--<dt><span>Correo</span></dt>-->
+            <!--<dd>-->
+                <!--<span>{{contact.email}}</span>-->
+            <!--</dd>-->
+
+            <!--<hr>-->
+
+            <!--<dt><span>Género</span></dt>-->
+            <!--<dd>-->
+                <!--<span *ngIf="contact.sex == 'h'">Hombre</span>-->
+                <!--<span *ngIf="contact.sex == 'm'">Mujer</span>-->
+                <!--<span *ngIf="contact.sex == 'o'">Otro</span>-->
+            <!--</dd>-->
+
+            <!--<hr>-->
+
+            <!--<dt><span>Última fecha de modificación</span></dt>-->
+            <!--<dd>-->
+                <!--<span>{{contact.updateDate}}</span>-->
+            <!--</dd>-->
+
+            <!--<hr>-->
+
+            <!--<dt><span>Estado</span></dt>-->
+            <!--<dd>-->
+                <!--<span *ngIf="contact.status == 'PL'">Potencial Lead</span>-->
+                <!--<span *ngIf="contact.status == 'L'">Lead</span>-->
+            <!--</dd>-->
+
+            <!--<hr>-->
+
+            <!--<dt><span>Interes</span></dt>-->
+            <!--<dd>-->
+                <!--<span>{{contact.interest}}</span>-->
+            <!--</dd>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<hr>-->
+    <!--<div class="row">-->
+        <!--<div class="col-md-12">-->
+            <!--<h4>Seguimientos de <span>{{contact.name}} {{contact.firstName}} {{contact.lastName}}</span></h4>-->
+            <!--<div class="table-responsive" *ngIf="follows">-->
+                <!--<table class="table table-striped">-->
+                    <!--<thead>-->
+                    <!--<tr>-->
+                        <!--<th><span>Serie</span></th>-->
+                        <!--<th><span>Origen del contacto</span></th>-->
+                        <!--<th><span>Mediante</span></th>-->
+                        <!--<th><span>Próximo contacto</span></th>-->
+                        <!--<th><span>Fecha de registro</span></th>-->
+                        <!--<th><span>Estado</span></th>-->
+                        <!--<th><span>Razón de contacto</span></th>-->
+                        <!--<th><span>Resultado</span></th>-->
+                        <!--<th><span>Contacto</span></th>-->
+                        <!--<th></th>-->
+                    <!--</tr>-->
+                    <!--</thead>-->
+                    <!--<tbody>-->
+                    <!--<tr *ngFor="let follow of follows ;trackBy: trackId">-->
+                        <!--<td><a [routerLink]="['../follow', follow.id ]">{{follow.id}}</a></td>-->
+                        <!--<td>-->
+                            <!--<span *ngIf="follow.originContact == '1'">Daily planet</span>-->
+                            <!--<span *ngIf="follow.originContact == '2'">Once noticias</span>-->
+                            <!--<span *ngIf="follow.originContact == '3'">Otro</span>-->
+                        <!--</td>-->
+                        <!--<td>{{follow.subOriginContact}}</td>-->
+                        <!--<td>{{follow.nextContactDate}}</td>-->
+                        <!--<td>{{follow.registryDate}}</td>-->
+                        <!--<td>-->
+                            <!--<span class="btn btn-warning" *ngIf="follow.status == 'P'">Pendiente</span>-->
+                            <!--<span class="btn btn-success" *ngIf="follow.status == 'C'">Completado</span>-->
+                            <!--<span class="btn btn-danger" *ngIf="follow.status == 'NC'">No completado</span>-->
+                        <!--<td>{{follow.nextContactReason}}</td>-->
+                        <!--<td>{{follow.result}}</td>-->
+                        <!--<td>-->
+                            <!--<div *ngIf="follow.contactId">-->
+                                <!--<a [routerLink]="['../contact', follow.contactId  ]" >{{follow.contactName}}</a>-->
+                            <!--</div>-->
+                        <!--</td>-->
+                        <!--<td class="text-right">-->
+                            <!--<div class="btn-group flex-btn-group-container">-->
+                                <!--<button type="submit"-->
+                                        <!--[routerLink]="['../follow', follow.id ]"-->
+                                        <!--class="btn btn-info btn-sm">-->
+                                    <!--<span class="fa fa-eye"></span>-->
+                                    <!--<span class="d-none d-md-inline">Detalles</span>-->
+                                <!--</button>-->
+                                <!--&lt;!&ndash;<button type="submit"&ndash;&gt;-->
+                                <!--&lt;!&ndash;[routerLink]="['/', { outlets: { popup: 'follow/'+ follow.id + '/edit'} }]"&ndash;&gt;-->
+                                <!--&lt;!&ndash;replaceUrl="true"&ndash;&gt;-->
+                                <!--&lt;!&ndash;queryParamsHandling="merge"&ndash;&gt;-->
+                                <!--&lt;!&ndash;class="btn btn-primary btn-sm">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<span class="fa fa-pencil"></span>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<span class="d-none d-md-inline">Edit</span>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</button>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<button type="submit"&ndash;&gt;-->
+                                <!--&lt;!&ndash;[routerLink]="['/', { outlets: { popup: 'follow/'+ follow.id + '/delete'} }]"&ndash;&gt;-->
+                                <!--&lt;!&ndash;replaceUrl="true"&ndash;&gt;-->
+                                <!--&lt;!&ndash;queryParamsHandling="merge"&ndash;&gt;-->
+                                <!--&lt;!&ndash;class="btn btn-danger btn-sm">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<span class="fa fa-remove"></span>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<span class="d-none d-md-inline">Delete</span>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</button>&ndash;&gt;-->
+                            <!--</div>-->
+                        <!--</td>-->
+                    <!--</tr>-->
+                    <!--</tbody>-->
+                <!--</table>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->

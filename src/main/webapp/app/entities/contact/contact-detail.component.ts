@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
@@ -7,6 +7,7 @@ import { JhiEventManager } from 'ng-jhipster';
 import { Contact } from './contact.model';
 import { ContactService } from './contact.service';
 import { Follow } from '../follow/follow.model';
+import {MatPaginator, MatTableDataSource} from '@angular/material';
 
 @Component({
     selector: 'jhi-contact-detail',
@@ -17,6 +18,10 @@ export class ContactDetailComponent implements OnInit, OnDestroy {
     contact: Contact;
     private subscription: Subscription;
     private eventSubscriber: Subscription;
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+
+    dataSource:any;
+    displayedColumns = ['no', 'origin', 'mediante', 'next','registry','status','reason','contact','actions'];
 
     constructor(
         private eventManager: JhiEventManager,
@@ -41,7 +46,8 @@ export class ContactDetailComponent implements OnInit, OnDestroy {
         this.contactService.findFollowByContact(id).subscribe(
             (res: HttpResponse<Follow[]>) => {
                 this.follows = res.body;
-                console.log(this.follows);
+                this.dataSource = new MatTableDataSource<Follow>(this.follows);
+                this.dataSource.paginator = this.paginator;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
