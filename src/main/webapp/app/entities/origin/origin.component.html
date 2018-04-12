@@ -1,0 +1,66 @@
+<mat-card class="example-card" style="margin-top: 20px">
+    <mat-card-content>
+        <div>
+            <h2>
+                <span>Origenes</span>
+                <button class="btn btn-primary float-right jh-create-entity create-origin" [routerLink]="['/', { outlets: { popup: ['origin-new'] } }]">
+                    <span class="fa fa-plus"></span>
+                    <span >
+                    Crear nuevo origien
+                    </span>
+                </button>
+            </h2>
+            <jhi-alert></jhi-alert>
+            <div class="row">
+            </div>
+            <br/>
+            <div class="table-responsive" *ngIf="origins">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                    <th><span>ID</span></th>
+                    <th><span>Nombre</span></th>
+                    <th><span>Descripción</span></th>
+                    <th><span>Estado</span></th>
+                    <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let origin of origins ;trackBy: trackId">
+                        <td><a [routerLink]="['../origin', origin.id ]">{{origin.id}}</a></td>
+                        <td>{{origin.name}}</td>
+                        <td>{{origin.description}}</td>
+                        <td>{{origin.status}}</td>
+                        <td class="text-right">
+                            <div class="btn-group flex-btn-group-container">
+                                <button type="submit"
+                                        [routerLink]="['../origin', origin.id ]"
+                                        class="btn btn-info btn-sm">
+                                    <span class="fa fa-eye"></span>
+                                    <span class="d-none d-md-inline">Ver</span>
+                                </button>
+                                <button type="submit"
+                                        [routerLink]="['/', { outlets: { popup: 'origin/'+ origin.id + '/edit'} }]"
+                                        replaceUrl="true"
+                                        queryParamsHandling="merge"
+                                        class="btn btn-primary btn-sm">
+                                    <span class="fa fa-pencil"></span>
+                                    <span class="d-none d-md-inline">Editar</span>
+                                </button>
+                                <button type="submit"
+                                        [routerLink]="['/', { outlets: { popup: 'origin/'+ origin.id + '/delete'} }]"
+                                        replaceUrl="true"
+                                        queryParamsHandling="merge"
+                                        class="btn btn-danger btn-sm">
+                                    <span class="fa fa-remove"></span>
+                                    <span class="d-none d-md-inline">Eliminar</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

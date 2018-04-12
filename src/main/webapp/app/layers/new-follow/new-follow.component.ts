@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FollowService } from '../../entities/follow/follow.service';
 import { Follow } from '../../entities/follow/follow.model';
 import { Principal } from '../../shared';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
     selector: 'new-follow',
@@ -26,6 +27,7 @@ export class NewFollowComponent implements OnInit, OnDestroy {
     public origins:any = [{id:"1",name:"Daily Planet"},{id:"2",name:"Once noticias"},{id:"3",name:"Otro"}];
     public articles:any = [{id:"1",name:"Entretenimiento"},{id:"2",name:"Lista de Bodas"},{id:"3",name:"Articulos personales"},{id:"4",name:"Articulos VACACIONES"},{id:"5",name:"Articulos HOGAR"}];
     currentDate:any;
+    nextContactdate:any;
 
 
     constructor(
@@ -61,10 +63,17 @@ export class NewFollowComponent implements OnInit, OnDestroy {
     create(){
         this.success = false;
         this.fail = false;
-        (this.follow as any).nextContactDate = (this.follow as any).nextContactDate.day.toString()+'-'+(this.follow as any).nextContactDate.month.toString()+'-'+(this.follow as any).nextContactDate.year.toString();
+        //(this.follow as any).nextContactDate = (this.follow as any).nextContactDate.day.toString()+'-'+(this.follow as any).nextContactDate.month.toString()+'-'+(this.follow as any).nextContactDate.year.toString();
         (this.follow as any).result = "Resultado pendiente";
         this.subscribeToSaveResponse(
             this.followService.create(this.follow));
+    }
+
+    findByNextContact(event: MatDatepickerInputEvent<Date>){
+        let date : Date = new Date(`${event.value}`);
+        let month:any = date.getMonth()+1;
+        let tempDate = date.getDate().toString()+'-'+month.toString()+'-'+date.getFullYear().toString();
+        (this.follow as any).nextContactDate = tempDate;
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<Follow>>) {

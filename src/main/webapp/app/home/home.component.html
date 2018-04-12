@@ -5,7 +5,14 @@
                 <h4>
                     <span>Seguimientos del día de hoy</span>
                 </h4>
+                <button mat-raised-button color="primary"  [routerLink]="['/validate-contact']"> Crear seguimiento</button>
             </div>
+            <!--<button class="btn btn-success" [routerLink]="['/validate-contact']" style="margin-bottom: 20px!important;width: 100%;">-->
+                <!--<span class="fa fa-plus"></span>-->
+                    <!--<span>-->
+                        <!--Crear seguimiento-->
+                    <!--</span>-->
+            <!--</button>-->
             <mat-grid-list cols="4" rowHeight="100px">
                 <mat-grid-tile [colspan]="1" [rowspan]="1">
                     <mat-form-field style="width: 100%;padding: 10px">

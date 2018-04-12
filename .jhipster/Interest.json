@@ -1,0 +1,24 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180412062015",
+    "dto": "mapstruct",
+    "service": "serviceImpl",
+    "entityTableName": "interest",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no"
+}
