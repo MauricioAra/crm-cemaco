@@ -16,8 +16,8 @@
                 <mat-grid-tile [colspan]="1" [rowspan]="1">
                     <mat-form-field style="width: 100%;padding: 10px">
                         <mat-select placeholder="Intereses" [(ngModel)]="selectedInterest" (ngModelChange)="filterInterest(selectedInterest)">
-                            <mat-option *ngFor="let interest of interests" [value]="interest">
-                                {{ interest }}
+                            <mat-option *ngFor="let interest of interests" [value]="interest.name">
+                                {{ interest.name }}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
@@ -26,8 +26,8 @@
                 <mat-grid-tile [colspan]="1" [rowspan]="1">
                     <mat-form-field style="width: 100%;padding: 10px">
                         <mat-select placeholder="Origen" [(ngModel)]="selectedOrigin" (ngModelChange)="filterOrigin(selectedOrigin)">
-                            <mat-option *ngFor="let origin of origins" [value]="origin">
-                                {{ origin }}
+                            <mat-option *ngFor="let origin of origins" [value]="origin.name">
+                                {{ origin.name }}
                             </mat-option>
                         </mat-select>
                     </mat-form-field>

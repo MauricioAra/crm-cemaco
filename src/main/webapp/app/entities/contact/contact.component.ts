@@ -8,6 +8,12 @@ import { ContactService } from './contact.service';
 import { Principal } from '../../shared';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
 
+import { Origin } from '../../entities/origin/origin.model';
+import { OriginService } from '../../entities/origin/origin.service';
+
+import { Interest } from '../../entities/interest/interest.model';
+import { InterestService } from '../../entities/interest/interest.service';
+
 @Component({
     selector: 'jhi-contact',
     templateUrl: './contact.component.html'
@@ -21,18 +27,23 @@ export class ContactComponent implements OnInit, OnDestroy {
     dataSource:any;
     displayedColumns = ['position', 'name', 'firstName', 'email','phone','origin','interest','action'];
 
-    interests = ['TV-s','Bodas'];
-    origins = ['OnceNoticias','DailyPlanet'];
+    // interests = ['TV-s','Bodas'];
+    // origins = ['OnceNoticias','DailyPlanet'];
 
     selectedInterest:any;
     selectedOrigin:any;
+
+    origins: Origin[];
+    interests: Interest[];
 
 
     constructor(
         private contactService: ContactService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
-        private principal: Principal) {}
+        private principal: Principal,
+        private originService: OriginService,
+        private interestService: InterestService) {}
 
     loadAll() {
         this.contactService.query().subscribe(
@@ -40,6 +51,20 @@ export class ContactComponent implements OnInit, OnDestroy {
                 this.contacts = res.body;
                 this.dataSource = new MatTableDataSource<Contact>(this.contacts);
                 this.dataSource.paginator = this.paginator;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+
+        this.originService.query().subscribe(
+            (res: HttpResponse<Origin[]>) => {
+                this.origins = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+
+        this.interestService.query().subscribe(
+            (res: HttpResponse<Interest[]>) => {
+                this.interests = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );

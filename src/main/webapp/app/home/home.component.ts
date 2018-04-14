@@ -10,6 +10,7 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import {MatPaginator, MatTableDataSource} from '@angular/material';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
+
 @Component({
     selector: 'jhi-home',
     templateUrl: './home.component.html',
@@ -26,6 +27,7 @@ export class HomeComponent implements OnInit {
     public currentDate:any;
     public nextContact:any;
     public registryDate:any;
+
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
     dataSource:any;
@@ -50,6 +52,7 @@ export class HomeComponent implements OnInit {
         this.currentDate = temp2+'-'+temp+'-'+this.now.getFullYear();
 
         this.loadFollows(this.currentDate);
+
     }
 
     loadFollows(date){

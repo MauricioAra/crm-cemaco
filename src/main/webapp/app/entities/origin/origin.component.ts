@@ -12,7 +12,7 @@ import { Principal } from '../../shared';
     templateUrl: './origin.component.html'
 })
 export class OriginComponent implements OnInit, OnDestroy {
-origins: Origin[];
+ origins: Origin[];
     currentAccount: any;
     eventSubscriber: Subscription;
 

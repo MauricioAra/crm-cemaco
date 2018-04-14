@@ -8,6 +8,12 @@ import { ContactService } from '../../entities/contact/contact.service';
 import { Contact } from '../../entities/contact/contact.model';
 import { Principal } from '../../shared';
 
+import { Origin } from '../../entities/origin/origin.model';
+import { OriginService } from '../../entities/origin/origin.service';
+
+import { Interest } from '../../entities/interest/interest.model';
+import { InterestService } from '../../entities/interest/interest.service';
+
 @Component({
     selector: 'new-follow',
     templateUrl: './new-contact.component.html'
@@ -21,11 +27,16 @@ export class NewContactComponent implements OnInit, OnDestroy {
     now: any = new Date();
     currentDate:any;
 
+    origins: Origin[];
+    interests: Interest[];
+
     constructor(
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
         private principal: Principal,
-        private contactService:ContactService
+        private contactService:ContactService,
+        private originService: OriginService,
+        private interestService: InterestService
     ) {
     }
 
@@ -38,9 +49,28 @@ export class NewContactComponent implements OnInit, OnDestroy {
         (this.contact as any).registryDate = this.currentDate;
         (this.contact as any).updateDate =  this.currentDate;
         (this.contact as any).status = 'PL';
+
+        this.originService.query().subscribe(
+            (res: HttpResponse<Origin[]>) => {
+                this.origins = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+
+        this.interestService.query().subscribe(
+            (res: HttpResponse<Interest[]>) => {
+                this.interests = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+
     }
 
     ngOnDestroy() {
+
+    }
+
+    private onError(error) {
 
     }
 
